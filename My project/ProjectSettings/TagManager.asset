@@ -44,10 +44,10 @@ TagManager:
   - name: background
     uniqueID: 377161235
     locked: 0
-  - name: Player
+  - name: weapon
     uniqueID: 2159556107
     locked: 0
-  - name: New Layer 3
+  - name: Player
     uniqueID: 3095224715
     locked: 0
   - name: New Layer 4
