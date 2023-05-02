@@ -30,21 +30,42 @@ public class mousePointer : MonoBehaviour
         {
             dir = 0;
             animator.SetFloat("angle", 0);
+
+            if (weapon.transform.localScale.y < 0)
+            {
+                weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
+            }
+
         }
         else if (angle >= 45 && angle < 135)
         {
             dir = 90;
             animator.SetFloat("angle", 0.33f);
+
+            if (weapon.transform.localScale.y < 0)
+            {
+                weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
+            }
         }
         else if (angle >= 135 || angle < -135)
         {
             dir = 180;
             animator.SetFloat("angle", 0.66f);
+
+            if (weapon.transform.localScale.y > 0)
+            {
+                weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
+            }
         }
         else if (angle >= -135 && angle < -45)
         {
             dir = -90;
             animator.SetFloat("angle", 1);
+
+            if (weapon.transform.localScale.y < 0)
+            {
+                weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
+            }
         }
         //this.transform.rotation = Quaternion.AngleAxis(dir, Vector3.forward);
 
