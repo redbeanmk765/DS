@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class breakableObject : MonoBehaviour
 {
     public GameObject obj;
-    public int maxHp;
-    public int nowHp;
+    public Slider hpBar;
+    public float maxHp;
+    public float nowHp;
     public string objectName;
     public int dmg;
     Vector3 position;
@@ -14,7 +16,6 @@ public class breakableObject : MonoBehaviour
     {
         objectName = objectNameSet;
         maxHp = maxHpSet;
-        nowHp = maxHpSet;
         
     }
 
@@ -29,6 +30,7 @@ public class breakableObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        hpBar.transform.position = new Vector3(position.x + 0.5f, position.y + 10, position.z);
         
     }
 
@@ -38,9 +40,13 @@ public class breakableObject : MonoBehaviour
         {
             this.dmg = col.gameObject.GetComponent<weaponStat>().dmg;
             nowHp -= dmg;
-                Debug.Log(nowHp);
-                
-                if (nowHp <= 0)
+
+            hpBar.value = nowHp / maxHp;
+
+            Debug.Log(nowHp);
+            Debug.Log(hpBar.value);
+
+            if (nowHp <= 0)
                 {
                 //nowHp = maxHp;
                 Destroy(gameObject);
