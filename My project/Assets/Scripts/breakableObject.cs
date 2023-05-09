@@ -9,29 +9,36 @@ public class breakableObject : MonoBehaviour
     public Slider hpBar;
     public float maxHp;
     public float nowHp;
+    public GameObject spawnObj;
+
     public string objectName;
     public int dmg;
     Vector3 position;
+
     private void setObjectStat(int maxHpSet, string objectNameSet)
     {
         objectName = objectNameSet;
         maxHp = maxHpSet;
-        
+        nowHp = maxHp;
+
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if(objectName == "Drum")
-            setObjectStat(5, "Drum");
+        if(obj.CompareTag  ("Drum"))
+            setObjectStat(10, "Drum");
          position = this.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        hpBar.transform.position = new Vector3(position.x + 0.5f, position.y + 10, position.z);
-        
+        float hpRatio = nowHp / maxHp;
+        hpBar.transform.position = new Vector3(position.x , position.y + 1, position.z);
+        hpBar.value = Mathf.Lerp(hpBar.value, hpRatio, Time.deltaTime * 10);
+
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -40,18 +47,17 @@ public class breakableObject : MonoBehaviour
         {
             this.dmg = col.gameObject.GetComponent<weaponStat>().dmg;
             nowHp -= dmg;
+          
+            
 
-            hpBar.value = nowHp / maxHp;
-
-            Debug.Log(nowHp);
-            Debug.Log(hpBar.value);
+           // Debug.Log(nowHp);
+           // Debug.Log(hpBar.value);
 
             if (nowHp <= 0)
                 {
-                //nowHp = maxHp;
                 Destroy(gameObject);
                
-                    Instantiate(obj, new Vector3(position.x, position.y + 1, position.z), Quaternion.identity);
+                    Instantiate(spawnObj, new Vector3(position.x, position.y , position.z), Quaternion.identity);
                      
                 }
             
