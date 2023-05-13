@@ -43,7 +43,7 @@ public class breakableObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Player"))
+        if (col.CompareTag("attack"))
         {
             this.dmg = col.gameObject.GetComponent<weaponStat>().dmg;
             nowHp -= dmg;
@@ -54,12 +54,12 @@ public class breakableObject : MonoBehaviour
            // Debug.Log(hpBar.value);
 
             if (nowHp <= 0)
-                {
+            {
                 Destroy(gameObject);
                
                     Instantiate(spawnObj, new Vector3(position.x, position.y , position.z), Quaternion.identity);
                      
-                }
+            }
             
         }
     }
