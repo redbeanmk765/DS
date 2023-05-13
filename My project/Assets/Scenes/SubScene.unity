@@ -2780,6 +2780,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2430802336025852936, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
   m_PrefabInstance: {fileID: 2609906812198175330}
   m_PrefabAsset: {fileID: 0}
+--- !u!58 &1864546642
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864546641}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3270775
 --- !u!1 &1919507946
 GameObject:
   m_ObjectHideFlags: 0
@@ -3109,6 +3125,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hp-potion
       objectReference: {fileID: 0}
+    - target: {fileID: 2430802336025852936, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_TagString
+      value: getaleItems
+      objectReference: {fileID: 0}
     - target: {fileID: 4419579373819907607, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -3119,11 +3139,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4419579373819907607, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 246.3013
+      value: 248.572
       objectReference: {fileID: 0}
     - target: {fileID: 4419579373819907607, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 131.16
+      value: 125.908
       objectReference: {fileID: 0}
     - target: {fileID: 4419579373819907607, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
       propertyPath: m_LocalPosition.z
