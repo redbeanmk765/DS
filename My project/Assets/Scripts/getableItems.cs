@@ -25,7 +25,7 @@ public class getableItems : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        nameText.transform.position = new Vector3(position.x, position.y + 3, position.z);
+        nameText.transform.position = new Vector3(position.x, position.y + 0.5f, position.z);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
