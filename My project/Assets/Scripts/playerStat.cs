@@ -9,9 +9,10 @@ public class playerStat : MonoBehaviour
 {
     public int tmpItemNumber = 0;
     public Sprite tmpItemSprite;
+    public GameObject nearObj;
 
     public bool isItemNear;
-
+    public bool isItemGot = false;
     public int item1Number = 0;
     public int item2Number = 0;
     public int item3Number = 0;
@@ -48,6 +49,7 @@ public class playerStat : MonoBehaviour
                     item1Number = tmpItemNumber;
                     item1.sprite = tmpItemSprite;
                     item1.gameObject.SetActive(true);
+                    isItemGot = true;
                 }
 
                 else if (item2Number == 0)
@@ -55,6 +57,7 @@ public class playerStat : MonoBehaviour
                     item2Number = tmpItemNumber;
                     item2.sprite = tmpItemSprite;
                     item2.gameObject.SetActive(true);
+                    isItemGot = true;
                 }
 
                 else if (item3Number == 0)
@@ -62,10 +65,16 @@ public class playerStat : MonoBehaviour
                     item3Number = tmpItemNumber;
                     item3.sprite = tmpItemSprite;
                     item3.gameObject.SetActive(true);
+                    isItemGot = true;
                 }
 
                 else
                 { }
+
+                if (isItemGot == true)
+                {
+                    Destroy(nearObj); 
+                }
             }
 
         }
@@ -73,7 +82,8 @@ public class playerStat : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D col)
-    {        
+    {
+        nearObj = col.gameObject;
         if (col.CompareTag("getableItems"))
         {
             Debug.Log("An item is near");
