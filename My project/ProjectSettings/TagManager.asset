@@ -6,8 +6,8 @@ TagManager:
   tags:
   - Objects
   - Drum
-  - getaleItems
   - attack
+  - getableItems
   layers:
   - Default
   - TransparentFX
