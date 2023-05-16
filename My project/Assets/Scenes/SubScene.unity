@@ -2772,7 +2772,7 @@ GameObject:
   - component: {fileID: 945117625}
   - component: {fileID: 945117624}
   m_Layer: 5
-  m_Name: PlayerHP
+  m_Name: PlayerHpBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2787,9 +2787,10 @@ RectTransform:
   m_GameObject: {fileID: 945117622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1903289705}
   m_Father: {fileID: 430147020}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2818,7 +2819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d5acc3db068102c4c82b34be6cd4f7da, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3260,6 +3261,63 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1780374859
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 250.506
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 126.177
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121920241367219580, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+      propertyPath: m_Name
+      value: hp-potion (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
 --- !u!1 &1811928260
 GameObject:
   m_ObjectHideFlags: 0
@@ -3413,6 +3471,82 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831222190}
+  m_CullTransparentMesh: 1
+--- !u!1 &1903289704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1903289705}
+  - component: {fileID: 1903289707}
+  - component: {fileID: 1903289706}
+  m_Layer: 5
+  m_Name: PlayerHpBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1903289705
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903289704}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 945117623}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1903289706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903289704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 9df8af4961547764eb425c08148a93fa, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 0
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1903289707
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903289704}
   m_CullTransparentMesh: 1
 --- !u!1 &1919507946
 GameObject:
@@ -3739,8 +3873,11 @@ MonoBehaviour:
   item1: {fileID: 1283245693}
   item2: {fileID: 257567346}
   item3: {fileID: 302319851}
-  maxHp: 0
-  nowHp: 0
+  PlayerHpBar: {fileID: 1903289706}
+  maxHp: 100
+  nowHp: 50
+  damage: 0
+  cure: 0
   dmg: 1
   atkSpeed: 1
   attacked: 0
@@ -3772,11 +3909,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 248.48
+      value: 248.46
       objectReference: {fileID: 0}
     - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 126.04
+      value: 126.206
       objectReference: {fileID: 0}
     - target: {fileID: 5121920241367219576, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
       propertyPath: m_LocalPosition.z

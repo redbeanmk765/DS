@@ -47,6 +47,7 @@ public class playerUseItem : MonoBehaviour
                     break;
                 case 301:
                     Debug.Log("use potion");
+                    player.GetComponent<playerStat>().cure = 30;
                     break;
 
             }

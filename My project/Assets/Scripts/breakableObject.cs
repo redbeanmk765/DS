@@ -38,6 +38,7 @@ public class breakableObject : MonoBehaviour
         float hpRatio = nowHp / maxHp;
         hpBar.transform.position = new Vector3(position.x , position.y + 1, position.z);
         hpBar.value = Mathf.Lerp(hpBar.value, hpRatio, Time.deltaTime * 10);
+        
 
     }
 

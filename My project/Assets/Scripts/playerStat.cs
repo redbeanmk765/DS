@@ -19,8 +19,11 @@ public class playerStat : MonoBehaviour
     public Image item1;
     public Image item2;
     public Image item3;
-    public int maxHp;
-    public int nowHp;
+    public Image PlayerHpBar;
+    public float maxHp;
+    public float nowHp;
+    public float damage;
+    public float cure = 0;
     public int dmg;
     public float atkSpeed = 1;
     public bool attacked = false;
@@ -30,14 +33,29 @@ public class playerStat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxHp = 10;
-        nowHp = 10;
+        maxHp = 100;
+        nowHp = maxHp / 2;
         dmg = 1;
     }
     
     // Update is called once per frame
     void Update()
     {
+        nowHp = nowHp + cure;
+        nowHp = nowHp - damage;
+
+        cure = 0;
+
+        if(nowHp > maxHp)
+        {
+            nowHp = maxHp;
+        }
+
+        float hpRatio = nowHp / maxHp;
+        PlayerHpBar.fillAmount = Mathf.Lerp(PlayerHpBar.fillAmount, hpRatio, Time.deltaTime * 10);
+        //Debug.Log(hpRatio);
+
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (isItemNear)
@@ -73,7 +91,8 @@ public class playerStat : MonoBehaviour
 
                 if (isItemGot == true)
                 {
-                    Destroy(nearObj); 
+                    Destroy(nearObj);
+                    isItemGot = false;
                 }
             }
 
