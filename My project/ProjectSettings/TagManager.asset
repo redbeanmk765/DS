@@ -51,12 +51,12 @@ TagManager:
   - name: weapon
     uniqueID: 2159556107
     locked: 0
-  - name: Player
-    uniqueID: 3095224715
-    locked: 0
-  - name: New Layer 4
+  - name: Object
     uniqueID: 1306856059
     locked: 0
   - name: New Layer 5
     uniqueID: 1301783289
+    locked: 0
+  - name: Player
+    uniqueID: 3095224715
     locked: 0

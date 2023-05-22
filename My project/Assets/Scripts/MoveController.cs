@@ -7,7 +7,9 @@ public class MoveController : MonoBehaviour
     public float moveSpeed = 2.5f;
     Vector2 move = new Vector2();
     Rigidbody2D rigidbody2D;
-   
+
+    public GameObject player;
+
     float x;
     float y;
     Animator animator;
@@ -22,14 +24,21 @@ public class MoveController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateState();
+        if(player.GetComponent<playerStat>().playerDie == false) 
+        {
+            UpdateState();
+        }
 
-    
+
+        
     }
 
     private void FixedUpdate() 
     {
-        MoveCharacter();
+        if (player.GetComponent<playerStat>().playerDie == false)
+        {
+            MoveCharacter();
+        }
     }
 
     public void MoveCharacter()

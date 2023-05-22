@@ -10,6 +10,7 @@ public class playerStat : MonoBehaviour
     public int tmpItemNumber = 0;
     public Sprite tmpItemSprite;
     public GameObject nearObj;
+    public GameObject player;
 
     public bool isItemNear;
     public bool isItemGot = false;
@@ -27,7 +28,8 @@ public class playerStat : MonoBehaviour
     public int dmg;
     public float atkSpeed = 1;
     public bool attacked = false;
-   
+    public bool playerDie = false;
+
 
 
     // Start is called before the first frame update
@@ -44,7 +46,14 @@ public class playerStat : MonoBehaviour
         nowHp = nowHp + cure;
         nowHp = nowHp - damage;
 
+        if (nowHp <= 0)
+        {
+            playerDie = true;
+            player.GetComponent<Animator>().SetBool("isDie", true);
+        }
+
         cure = 0;
+        damage = 0;
 
         if(nowHp > maxHp)
         {
