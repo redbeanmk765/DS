@@ -39,6 +39,7 @@ public class MoveController : MonoBehaviour
         {
             MoveCharacter();
         }
+        
     }
 
     public void MoveCharacter()

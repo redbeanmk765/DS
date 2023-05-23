@@ -50,6 +50,7 @@ public class playerStat : MonoBehaviour
         {
             playerDie = true;
             player.GetComponent<Animator>().SetBool("isDie", true);
+            player.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         }
 
         cure = 0;

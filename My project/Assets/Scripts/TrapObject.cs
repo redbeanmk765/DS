@@ -9,8 +9,8 @@ public class TrapObject : MonoBehaviour
     public float dmg;
     public GameObject onObj;
 
-    public float timer;
-    public int waitingTime;
+    //public float timer;
+   // public int waitingTime;
 
     public bool timeCheck = true;
     public bool onTrigger = false;
@@ -24,8 +24,8 @@ public class TrapObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer = 0;
-        waitingTime = 2;
+       // timer = 0;
+       // waitingTime = 2;
     }
 
     // Update is called once per frame
