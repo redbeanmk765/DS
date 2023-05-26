@@ -20,56 +20,56 @@ public class enemy : MonoBehaviour
         public abstract void OnStateExit();
     }
 
-    public class IdleState : BaseState
-    {
-        public IdleState(enemy enemy) : base(enemy) { }
+    //public class IdleState : BaseState
+    //{
+    //    public IdleState(enemy enemy) : base(enemy) { }
 
-        public override void OnStateEnter()
-        {
-        }
+    //    public override void OnStateEnter()
+    //    {
+    //    }
 
-        public override void OnStateUpdate()
-        {
-        }
+    //    public override void OnStateUpdate()
+    //    {
+    //    }
 
-        public override void OnStateExit()
-        {
-        }
-    }
+    //    public override void OnStateExit()
+    //    {
+    //    }
+    //}
 
-    public class MoveState : BaseState
-    {
-        public MoveState(enemy enemy) : base(enemy) { }
+    //public class MoveState : BaseState
+    //{
+    //    public MoveState(enemy enemy) : base(enemy) { }
 
-        public override void OnStateEnter()
-        {
-        }
+    //    public override void OnStateEnter()
+    //    {
+    //    }
 
-        public override void OnStateUpdate()
-        {
-        }
+    //    public override void OnStateUpdate()
+    //    {
+    //    }
 
-        public override void OnStateExit()
-        {
-        }
-    }
+    //    public override void OnStateExit()
+    //    {
+    //    }
+    //}
 
-    public class AttackState : BaseState
-    {
-        public AttackState(enemy enemy) : base(enemy) { }
+    //public class AttackState : BaseState
+    //{
+    //    public AttackState(enemy enemy) : base(enemy) { }
 
-        public override void OnStateEnter()
-        {
-        }
+    //    public override void OnStateEnter()
+    //    {
+    //    }
 
-        public override void OnStateUpdate()
-        {
-        }
+    //    public override void OnStateUpdate()
+    //    {
+    //    }
 
-        public override void OnStateExit()
-        {
-        }
-    }
+    //    public override void OnStateExit()
+    //    {
+    //    }
+    //}
 
 
     public class FSM

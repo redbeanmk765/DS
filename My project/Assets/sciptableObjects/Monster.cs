@@ -13,6 +13,7 @@ public class Monster : ScriptableObject
     public int level;
     public int damage;
     public Race race;
+   
 }
 public enum Race
 {

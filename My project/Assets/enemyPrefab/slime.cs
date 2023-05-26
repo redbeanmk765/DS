@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class slime : enemy
 {
+    public GameObject enemy;
+    public GameObject player;
+    public GameObject[] players;
+
     private enum State
     {
-        Idle,
-        Move,
-        Attack
+        sleep,
+        wake,
+        idle,
+        move,
+        attack
     }
 
     private State curState;
@@ -16,47 +22,50 @@ public class slime : enemy
 
     private void Start()
     {
-        curState = State.Idle;
+        curState = State.idle;
         fsm = new FSM(new IdleState(this));
+        players = GameObject.FindGameObjectsWithTag("Player");
+        player = players[0];
     }
 
+ 
     private void Update()
     {
         switch (curState)
         {
-            case State.Idle:
+            case State.idle:
                 if (CanSeePlayer())
                 {
                     if (CanAttackPlayer())
-                        ChangeState(State.Attack);
+                        ChangeState(State.attack);
                     else
-                        ChangeState(State.Move);
+                        ChangeState(State.move);
                 }
                 break;
-            case State.Move:
+            case State.move:
                 if (CanSeePlayer())
                 {
                     if (CanAttackPlayer())
                     {
-                        ChangeState(State.Attack);
+                        ChangeState(State.attack);
                     }
                 }
                 else
                 {
-                    ChangeState(State.Idle);
+                    ChangeState(State.idle);
                 }
                 break;
-            case State.Attack:
+            case State.attack:
                 if (CanSeePlayer())
                 {
                     if (!CanAttackPlayer())
                     {
-                        ChangeState(State.Move);
+                        ChangeState(State.move);
                     }
                 }
                 else
                 {
-                    ChangeState(State.Idle);
+                    ChangeState(State.idle);
                 }
                 break;
         }
@@ -69,13 +78,13 @@ public class slime : enemy
         curState = nextState;
         switch (curState)
         {
-            case State.Idle:
+            case State.idle:
                 fsm.ChangeState(new IdleState(this));
                 break;
-            case State.Move:
+            case State.move:
                 fsm.ChangeState(new MoveState(this));
                 break;
-            case State.Attack:
+            case State.attack:
                 fsm.ChangeState(new AttackState(this));
                 break;
         }
@@ -83,6 +92,7 @@ public class slime : enemy
 
     private bool CanSeePlayer()
     {
+        Vector2.Distance()
         return true;
         // TODO:: 플레이어 탐지 구현
     }
@@ -92,4 +102,57 @@ public class slime : enemy
         return true;
         // TODO:: 사정거리 체크 구현
     }
+
+    public class IdleState : BaseState
+    {
+        public IdleState(enemy enemy) : base(enemy) { }
+
+        public override void OnStateEnter()
+        {
+        }
+
+        public override void OnStateUpdate()
+        {
+        }
+
+        public override void OnStateExit()
+        {
+        }
+    }
+
+    public class MoveState : BaseState
+    {
+        public MoveState(enemy enemy) : base(enemy) { }
+
+        public override void OnStateEnter()
+        {
+        }
+
+        public override void OnStateUpdate()
+        {
+        }
+
+        public override void OnStateExit()
+        {
+        }
+    }
+
+    public class AttackState : BaseState
+    {
+        public AttackState(enemy enemy) : base(enemy) { }
+
+        public override void OnStateEnter()
+        {
+        }
+
+        public override void OnStateUpdate()
+        {
+        }
+
+        public override void OnStateExit()
+        {
+        }
+    }
+
+
 }
