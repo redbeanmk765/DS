@@ -70,10 +70,10 @@ public class playerStat : MonoBehaviour
         {
             if (isItemNear)
             {
-                Debug.Log("pressed E");
+               // Debug.Log("pressed E");
                 if (item1Number == 0)
                 {
-                    Debug.Log("Item1 is got");
+                   // Debug.Log("Item1 is got");
                     item1Number = tmpItemNumber;
                     item1.sprite = tmpItemSprite;
                     item1.gameObject.SetActive(true);
@@ -115,7 +115,7 @@ public class playerStat : MonoBehaviour
         nearObj = col.gameObject;
         if (col.CompareTag("getableItems"))
         {
-            Debug.Log("An item is near");
+            //Debug.Log("An item is near");
             isItemNear = true;
             tmpItemNumber = col.GetComponent<getableItems>().itemNumber;
             tmpItemSprite = col.GetComponent<SpriteRenderer>().sprite;
@@ -127,7 +127,7 @@ public class playerStat : MonoBehaviour
 
         if (col.CompareTag("getableItems"))
         {
-            Debug.Log("An item is not near");
+            //Debug.Log("An item is not near");
             isItemNear = false;
 
 
