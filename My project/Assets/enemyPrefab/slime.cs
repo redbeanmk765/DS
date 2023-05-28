@@ -10,6 +10,7 @@ public class slime : enemy
     public GameObject[] players;
     public Animator animator;
     public bool onTrigger = false;
+    public bool attackMotionDone = false;
    // public float angle;
    // Vector2 playerPos, enemyPos;
     private enum State
@@ -80,20 +81,24 @@ public class slime : enemy
                     ChangeState(State.idle);
                 }
                 break;
-            case State.attack:
-                if (CanSeePlayer())
-                {
-                    if (!CanAttackPlayer())
+            case State.attack:               
+                    if (attackMotionDone == true)
                     {
-                        ChangeState(State.move);
+                        if (CanSeePlayer())
+                        {
+                            if (!CanAttackPlayer())
+                            {
+                                ChangeState(State.move);
+                            }
+
+                        }
+                        else
+                        {
+                            ChangeState(State.idle);
+                        }
                     }
-                   
-                }
-                else
-                {
-                    ChangeState(State.idle);
-                }
-                break;
+                    break;
+                
         }
 
         fsm.UpdateState();
@@ -101,7 +106,9 @@ public class slime : enemy
 
     private void EnterIdle() 
     {
+  
         ChangeState(State.idle);
+
     }
 
     private void ChangeState(State nextState)
@@ -130,7 +137,7 @@ public class slime : enemy
 
     private bool CanSeePlayer()
     {
-        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 4)
+        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 3)
         {
 
             return true;
@@ -143,7 +150,7 @@ public class slime : enemy
 
     private bool CanAttackPlayer()
     {
-        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 2)
+        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 1.5)
         {
 
             return true;
@@ -218,11 +225,21 @@ public class slime : enemy
 
         public override void OnStateEnter()
         {
-            float angle = Mathf.Atan2(curPlayer.transform.position.y - curEnemy.transform.position.y, curEnemy.transform.position.x - curEnemy.transform.position.x) * Mathf.Rad2Deg;
+            Debug.Log("startMove");
         }
 
         public override void OnStateUpdate()
-        {         
+        {
+            float angle = Mathf.Atan2(curPlayer.transform.position.y - curEnemy.transform.position.y, curPlayer.transform.position.x - curEnemy.transform.position.x) * Mathf.Rad2Deg;
+            
+            if (angle >= -90 && angle < 90)
+            {
+                curEnemy.transform.localEulerAngles = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                curEnemy.transform.localEulerAngles = new Vector3(0, 180, 0);
+            }
             curEnemy.transform.position = Vector3.MoveTowards(curEnemy.transform.position, curPlayer.transform.position, curEnemy.monsterStat.moveSpeed * Time.deltaTime);
             
         }
@@ -239,6 +256,7 @@ public class slime : enemy
 
         public override void OnStateEnter()
         {
+            curEnemy.Invoke("callAttackMotion", 0);
         }
 
         public override void OnStateUpdate()
@@ -289,6 +307,30 @@ public class slime : enemy
             colPlayer.gameObject.GetComponent<playerStat>().damage = monsterStat.damage;
         }
         if (onTrigger == false)
+        {
+            yield break;
+        }
+    }
+
+    private void callAttackMotion()
+    {
+        Debug.Log("callCorutine");
+        attackMotionDone = false;
+        StartCoroutine(AttackMotion());
+
+    }
+    IEnumerator AttackMotion()
+    {
+        Debug.Log("startlCorutine");
+        while (attackMotionDone == false)
+        {
+            yield return new WaitForSeconds(5.0f);
+            attackMotionDone = true;
+            Debug.Log("endlCorutine");
+            
+            yield break;
+        }
+        if (attackMotionDone == true)
         {
             yield break;
         }
