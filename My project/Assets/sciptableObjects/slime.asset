@@ -17,3 +17,4 @@ MonoBehaviour:
   level: 1
   damage: 10
   race: 0
+  moveSpeed: 0.3

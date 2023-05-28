@@ -5,14 +5,15 @@ using UnityEngine;
 public class enemy : MonoBehaviour
 {
 
-    public Monster mosnter;
+    public Monster monsterStat;
     public abstract class BaseState
     {
         protected enemy curEnemy;
-
-        protected BaseState(enemy enemy)
+        public GameObject curPlayer;
+        protected BaseState(enemy enemy, GameObject player)
         {
             curEnemy = enemy;
+            curPlayer = player;
         }
 
         public abstract void OnStateEnter();
