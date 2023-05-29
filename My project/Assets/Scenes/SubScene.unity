@@ -2390,7 +2390,7 @@ MonoBehaviour:
   players: []
   animator: {fileID: 0}
   onTrigger: 0
-  attackMotionDone: 0
+  attackMotionDone: 1
 --- !u!61 &622886902
 BoxCollider2D:
   m_ObjectHideFlags: 0

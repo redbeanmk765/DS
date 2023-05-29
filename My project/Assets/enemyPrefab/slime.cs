@@ -10,7 +10,7 @@ public class slime : enemy
     public GameObject[] players;
     public Animator animator;
     public bool onTrigger = false;
-    public bool attackMotionDone = false;
+    public bool attackMotionDone = true;
    // public float angle;
    // Vector2 playerPos, enemyPos;
     private enum State
@@ -42,7 +42,9 @@ public class slime : enemy
 
     private void Update()
     {
-        //angle = Mathf.Atan2(playerPos.y - playerPos.y, enemyPos.x - enemyPos.x) * Mathf.Rad2Deg;
+        Debug.Log(attackMotionDone);
+        Debug.Log(curState);
+       
         switch (curState)
         {
             case State.sleep:
@@ -57,14 +59,17 @@ public class slime : enemy
                     break;
                 }
             case State.idle:
-               
+
                 if (CanSeePlayer())
                 {
-                  
+
                     if (CanAttackPlayer())
-                        ChangeState(State.attack);
-                    else
-                        ChangeState(State.move);
+                    {
+                        // attackMotionDone = true;
+                         ChangeState(State.attack);
+                    }
+                else
+                    ChangeState(State.move);
                 }
                 break;
             case State.move:
@@ -73,6 +78,7 @@ public class slime : enemy
                     
                     if (CanAttackPlayer())
                     {
+                        // attackMotionDone = true;
                         ChangeState(State.attack);
                     }
                 }
@@ -82,7 +88,7 @@ public class slime : enemy
                 }
                 break;
             case State.attack:               
-                    if (attackMotionDone == true)
+                    if (attackMotionDone)
                     {
                         if (CanSeePlayer())
                         {
@@ -225,11 +231,12 @@ public class slime : enemy
 
         public override void OnStateEnter()
         {
-            Debug.Log("startMove");
+
         }
 
         public override void OnStateUpdate()
         {
+            
             float angle = Mathf.Atan2(curPlayer.transform.position.y - curEnemy.transform.position.y, curPlayer.transform.position.x - curEnemy.transform.position.x) * Mathf.Rad2Deg;
             
             if (angle >= -90 && angle < 90)
@@ -256,11 +263,15 @@ public class slime : enemy
 
         public override void OnStateEnter()
         {
-            curEnemy.Invoke("callAttackMotion", 0);
+            curEnemy.transform.position = Vector3.MoveTowards(curEnemy.transform.position, curPlayer.transform.position, 0.00001f);
+            curEnemy.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            curEnemy.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
+            //curEnemy.Invoke("callAttackMotion", 0);
         }
 
         public override void OnStateUpdate()
         {
+            curEnemy.Invoke("callAttackMotion", 0);
         }
 
         public override void OnStateExit()
@@ -314,19 +325,34 @@ public class slime : enemy
 
     private void callAttackMotion()
     {
-        Debug.Log("callCorutine");
-        attackMotionDone = false;
-        StartCoroutine(AttackMotion());
-
+        if (attackMotionDone == true)
+        {
+  
+             attackMotionDone = false;
+             StartCoroutine(AttackMotion());
+        }
     }
     IEnumerator AttackMotion()
     {
-        Debug.Log("startlCorutine");
+        Debug.Log("start Corutine");
+        
         while (attackMotionDone == false)
         {
-            yield return new WaitForSeconds(5.0f);
+            float angle = Mathf.Atan2(player.transform.position.y - this.transform.position.y, player.transform.position.x - this.transform.position.x) * Mathf.Rad2Deg;
+
+            if (angle >= -90 && angle < 90)
+            {
+                this.transform.localEulerAngles = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                this.transform.localEulerAngles = new Vector3(0, 180, 0);
+            }
+            yield return new WaitForSeconds(2.0f);
+            this.GetComponent<Rigidbody2D>().AddForce(this.transform.forward * 3);
+            yield return new WaitForSeconds(1.1f);
             attackMotionDone = true;
-            Debug.Log("endlCorutine");
+
             
             yield break;
         }
