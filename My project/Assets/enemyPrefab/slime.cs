@@ -9,10 +9,13 @@ public class slime : enemy
     public GameObject colPlayer;
     public GameObject[] players;
     public Animator animator;
+    public bool onWake = false;
     public bool onTrigger = false;
     public bool attackMotionDone = true;
-   // public float angle;
-   // Vector2 playerPos, enemyPos;
+    public Vector3 targetPos;
+    public bool isDash;
+    // public float angle;
+    // Vector2 playerPos, enemyPos;
     private enum State
     {
         sleep,
@@ -31,9 +34,10 @@ public class slime : enemy
         player = players[0];
         curState = State.sleep;
         fsm = new FSM(new sleepState(this,player));
+        
 
-      //  playerPos = player.transform.position;
-       // enemyPos = this.transform.position;
+        //  playerPos = player.transform.position;
+        // enemyPos = this.transform.position;
 
         animator = GetComponent<Animator>();
         Debug.Log(monsterStat.damage);
@@ -42,20 +46,21 @@ public class slime : enemy
 
     private void Update()
     {
-        Debug.Log(attackMotionDone);
-        Debug.Log(curState);
+       // Debug.Log(attackMotionDone);
+       // Debug.Log(curState);
        
         switch (curState)
         {
             case State.sleep:
                 if (CanSeePlayer())
                 {
+                    onWake = true;
                     ChangeState(State.wake);
                 }
                 break;
             case State.wake:
                 {
-                    Invoke("EnterIdle", 2);
+                    StartCoroutine(EnterIdle());
                     break;
                 }
             case State.idle:
@@ -110,11 +115,25 @@ public class slime : enemy
         fsm.UpdateState();
     }
 
-    private void EnterIdle() 
-    {
-  
-        ChangeState(State.idle);
 
+
+    IEnumerator EnterIdle()
+    {         
+        while (onWake)
+        {           
+            yield return new WaitForSeconds(2.0f);
+
+            if (onWake == false)
+            {
+                yield break;
+            }
+            ChangeState(State.idle);
+            onWake = false;
+        }
+        if (onWake == false)
+        {
+            yield break;
+        }
     }
 
     private void ChangeState(State nextState)
@@ -166,7 +185,73 @@ public class slime : enemy
         //  사정거리 체크 구현
     }
 
+    public void AttackDash1()
+    {
     
+
+
+        float angle = Mathf.Atan2(player.transform.position.y - this.transform.position.y, player.transform.position.x - this.transform.position.x) * Mathf.Rad2Deg;
+
+        if (angle >= -90 && angle < 90)
+        {
+            this.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            this.transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        attackMotionDone = false;
+    }
+    public void AttackDash2()
+    {
+        targetPos = player.transform.position;
+    }
+    public void AttackDash3()
+    {
+
+        float angle = Mathf.Atan2(targetPos.y - this.transform.position.y, targetPos.x - this.transform.position.x) * Mathf.Rad2Deg;
+
+        if (angle >= -90 && angle < 90)
+        {
+            this.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            this.transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        isDash = true;
+        StartCoroutine(dash());
+    }
+    
+
+    public void AttackDash4()
+    {
+        isDash = false;
+        attackMotionDone = true;
+    }
+    IEnumerator dash()
+    {
+        while (isDash)
+        {
+            
+            yield return new WaitForEndOfFrame();
+            this.transform.position = Vector3.MoveTowards(this.transform.position, targetPos, 0.05f);
+
+
+            if (isDash == false)
+            {
+                yield break;
+            }
+        
+           
+           
+        }
+        if (isDash == false)
+        {
+            yield break;
+        }
+    }
+
 
     public class sleepState : BaseState
     {
@@ -262,16 +347,12 @@ public class slime : enemy
 
 
         public override void OnStateEnter()
-        {
-            curEnemy.transform.position = Vector3.MoveTowards(curEnemy.transform.position, curPlayer.transform.position, 0.00001f);
-            curEnemy.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-            curEnemy.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
-            //curEnemy.Invoke("callAttackMotion", 0);
+        {                 
         }
 
         public override void OnStateUpdate()
         {
-            curEnemy.Invoke("callAttackMotion", 0);
+            
         }
 
         public override void OnStateExit()
@@ -323,43 +404,44 @@ public class slime : enemy
         }
     }
 
-    private void callAttackMotion()
-    {
-        if (attackMotionDone == true)
-        {
+    //private void callAttackMotion()
+    //{
+    //    if (attackMotionDone == true)
+    //    {
   
-             attackMotionDone = false;
-             StartCoroutine(AttackMotion());
-        }
-    }
-    IEnumerator AttackMotion()
-    {
-        Debug.Log("start Corutine");
+    //         attackMotionDone = false;
+    //         StartCoroutine(AttackMotion());
+    //    }
+    //}
+    //IEnumerator AttackMotion()
+    //{
+    //    Debug.Log("start Corutine");
         
-        while (attackMotionDone == false)
-        {
-            float angle = Mathf.Atan2(player.transform.position.y - this.transform.position.y, player.transform.position.x - this.transform.position.x) * Mathf.Rad2Deg;
+    //    while (attackMotionDone == false)
+    //    {
+    //        float angle = Mathf.Atan2(player.transform.position.y - this.transform.position.y, player.transform.position.x - this.transform.position.x) * Mathf.Rad2Deg;
 
-            if (angle >= -90 && angle < 90)
-            {
-                this.transform.localEulerAngles = new Vector3(0, 0, 0);
-            }
-            else
-            {
-                this.transform.localEulerAngles = new Vector3(0, 180, 0);
-            }
-            yield return new WaitForSeconds(2.0f);
-            this.GetComponent<Rigidbody2D>().AddForce(this.transform.forward * 3);
-            yield return new WaitForSeconds(1.1f);
-            attackMotionDone = true;
+    //        if (angle >= -90 && angle < 90)
+    //        {
+    //            this.transform.localEulerAngles = new Vector3(0, 0, 0);
+    //        }
+    //        else
+    //        {
+    //            this.transform.localEulerAngles = new Vector3(0, 180, 0);
+    //        }
+    //        yield return new WaitForSeconds(2.2f);
+    //        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(this.transform.forward.x * 3 , this.transform.forward.y * 3), ForceMode2D.Impulse);
+    //       this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, 0.1f);
+    //        yield return new WaitForSeconds(1.2f);
+    //        attackMotionDone = true;
 
             
-            yield break;
-        }
-        if (attackMotionDone == true)
-        {
-            yield break;
-        }
-    }
+    //        yield break;
+    //    }
+    //    if (attackMotionDone == true)
+    //    {
+    //        yield break;
+    //    }
+    //}
 
 }
