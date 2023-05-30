@@ -12,17 +12,21 @@ public class slime : enemy
     public bool onWake = false;
     public bool onTrigger = false;
     public bool attackMotionDone = true;
+    public bool onFlash = false;
+    public bool IsDie = false;
     public Vector3 targetPos;
     public bool isDash;
-    // public float angle;
-    // Vector2 playerPos, enemyPos;
+    public int nowHp;
+    public int dmg;
+
     private enum State
     {
         sleep,
         wake,
         idle,
         move,
-        attack
+        attack,
+        die
     }
 
     private State curState;
@@ -34,21 +38,36 @@ public class slime : enemy
         player = players[0];
         curState = State.sleep;
         fsm = new FSM(new sleepState(this,player));
-        
 
-        //  playerPos = player.transform.position;
-        // enemyPos = this.transform.position;
-
+        nowHp = monsterStat.maxHp;
         animator = GetComponent<Animator>();
         Debug.Log(monsterStat.damage);
+        onFlash = false;
+        IsDie = false;
     }
 
 
     private void Update()
     {
-       // Debug.Log(attackMotionDone);
-       // Debug.Log(curState);
-       
+
+        if (this.dmg != 0)
+        {
+            nowHp -= this.dmg;
+            this.dmg = 0;
+            onFlash = true;
+            StartCoroutine(FlashWhite());
+        }
+        if (nowHp <= 0)
+        {
+            if (IsDie == false)
+            {
+                this.curState = State.die;
+                ChangeState(State.die);
+                IsDie = true;
+            }
+
+        }
+
         switch (curState)
         {
             case State.sleep:
@@ -109,13 +128,40 @@ public class slime : enemy
                         }
                     }
                     break;
-                
+            case State.die:
+                if (this.gameObject.GetComponent<SpriteRenderer>().color.a <= 0)
+                {
+                    Debug.Log("de");
+                    Destroy(this.gameObject);
+                }
+                break;
+
         }
 
         fsm.UpdateState();
     }
 
-
+    IEnumerator FlashWhite()
+    {
+        while (onFlash)
+        {
+            this.GetComponent<SpriteRenderer>().material = this.monsterStat.flashMaterial;
+            yield return new WaitForSeconds(0.1f);
+            this.GetComponent<SpriteRenderer>().material = this.monsterStat.originalMaterial;
+            
+            if (onFlash == false)
+            {
+                yield break;
+            }
+            onFlash = false;
+            
+            
+        }
+        if (onFlash == false)
+        {
+            yield break;
+        }
+    }
 
     IEnumerator EnterIdle()
     {         
@@ -156,6 +202,10 @@ public class slime : enemy
             case State.attack:
                 fsm.ChangeState(new AttackState(this, player));
                 animator.SetInteger("State", 4);
+                break;
+            case State.die:
+                fsm.ChangeState(new DieState(this, player));
+                animator.SetInteger("State", 5);
                 break;
         }
     }
@@ -360,6 +410,30 @@ public class slime : enemy
         }
     }
 
+    public class DieState : BaseState
+    {
+        public DieState(enemy enemy, GameObject player) : base(enemy, player) { }
+
+
+        public override void OnStateEnter()
+        {
+
+        }
+
+        public override void OnStateUpdate()
+        {
+            
+            curEnemy.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, ((curEnemy.gameObject.GetComponent<SpriteRenderer>().color.a) - 1 * Time.deltaTime));
+          
+        }
+
+        public override void OnStateExit()
+        {
+        }
+    }
+
+
+
     private void OnCollisionEnter2D(Collision2D col)
     {
        
@@ -404,44 +478,15 @@ public class slime : enemy
         }
     }
 
-    //private void callAttackMotion()
-    //{
-    //    if (attackMotionDone == true)
-    //    {
-  
-    //         attackMotionDone = false;
-    //         StartCoroutine(AttackMotion());
-    //    }
-    //}
-    //IEnumerator AttackMotion()
-    //{
-    //    Debug.Log("start Corutine");
-        
-    //    while (attackMotionDone == false)
-    //    {
-    //        float angle = Mathf.Atan2(player.transform.position.y - this.transform.position.y, player.transform.position.x - this.transform.position.x) * Mathf.Rad2Deg;
-
-    //        if (angle >= -90 && angle < 90)
-    //        {
-    //            this.transform.localEulerAngles = new Vector3(0, 0, 0);
-    //        }
-    //        else
-    //        {
-    //            this.transform.localEulerAngles = new Vector3(0, 180, 0);
-    //        }
-    //        yield return new WaitForSeconds(2.2f);
-    //        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(this.transform.forward.x * 3 , this.transform.forward.y * 3), ForceMode2D.Impulse);
-    //       this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, 0.1f);
-    //        yield return new WaitForSeconds(1.2f);
-    //        attackMotionDone = true;
-
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("attack"))
+        {
+            this.dmg += col.gameObject.GetComponent<weaponStat>().dmg;
             
-    //        yield break;
-    //    }
-    //    if (attackMotionDone == true)
-    //    {
-    //        yield break;
-    //    }
-    //}
 
+        }
+    }
+
+    
 }
