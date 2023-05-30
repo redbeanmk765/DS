@@ -41,7 +41,7 @@ AnimatorStateMachine:
     m_Position: {x: 20, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7365668311473414383}
-    m_Position: {x: 320, y: 230, z: 0}
+    m_Position: {x: 390, y: 220, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -66,7 +66,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: isAttackMotion
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 1
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -88,6 +94,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isAttackMotion
+    m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: onClick
     m_EventTreshold: 0
@@ -97,10 +106,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.001500869
-  m_TransitionOffset: 0
-  m_ExitTime: 0
-  m_HasExitTime: 1
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0.007511049
+  m_ExitTime: 0.002503683
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -122,9 +131,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.16614372
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.0000000033164875
+  m_ExitTime: 0.000000003848092
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

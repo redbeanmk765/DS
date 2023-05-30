@@ -18,6 +18,7 @@ public class slime : enemy
     public bool isDash;
     public int nowHp;
     public int dmg;
+    public Vector3 MoveTowardsVector;
 
     private enum State
     {
@@ -225,7 +226,7 @@ public class slime : enemy
 
     private bool CanAttackPlayer()
     {
-        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 1.5)
+        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 2)
         {
 
             return true;
@@ -237,8 +238,9 @@ public class slime : enemy
 
     public void AttackDash1()
     {
-    
-
+        targetPos = player.transform.position;
+        MoveTowardsVector = Vector3.Normalize(targetPos - this.transform.position);
+        //MoveTowardsVector = MoveTowardsVector * 1f;
 
         float angle = Mathf.Atan2(player.transform.position.y - this.transform.position.y, player.transform.position.x - this.transform.position.x) * Mathf.Rad2Deg;
 
@@ -254,7 +256,8 @@ public class slime : enemy
     }
     public void AttackDash2()
     {
-        targetPos = player.transform.position;
+        
+        
     }
     public void AttackDash3()
     {
@@ -271,9 +274,7 @@ public class slime : enemy
         }
         isDash = true;
         StartCoroutine(dash());
-    }
-    
-
+    } 
     public void AttackDash4()
     {
         isDash = false;
@@ -282,27 +283,23 @@ public class slime : enemy
     IEnumerator dash()
     {
         while (isDash)
-        {
-            
-            yield return new WaitForEndOfFrame();
-            this.transform.position = Vector3.MoveTowards(this.transform.position, targetPos, 0.05f);
-
-
+        {            
+             yield return new WaitForEndOfFrame();
+            // this.transform.position = Vector3.MoveTowards(this.transform.position, targetPos, 0.05f);
+            if (this.curState != State.die)
+            {
+                transform.position += MoveTowardsVector * 2f * Time.fixedDeltaTime;
+            }
             if (isDash == false)
             {
                 yield break;
-            }
-        
-           
-           
+            }                        
         }
         if (isDash == false)
         {
             yield break;
         }
     }
-
-
     public class sleepState : BaseState
     {
         public sleepState(enemy enemy, GameObject player) : base(enemy,player) { }
@@ -310,11 +307,9 @@ public class slime : enemy
         public override void OnStateEnter()
         {           
         }
-
         public override void OnStateUpdate()
         {
         }
-
         public override void OnStateExit()
         {
         }
@@ -322,18 +317,12 @@ public class slime : enemy
     public class wakeState : BaseState
     {
         public wakeState(enemy enemy, GameObject player) : base(enemy, player) { }
-
-
         public override void OnStateEnter()
         {
-
         }
-
         public override void OnStateUpdate()
         {
-
         }
-
         public override void OnStateExit()
         {
         }
@@ -341,16 +330,12 @@ public class slime : enemy
     public class IdleState : BaseState
     {
         public IdleState(enemy enemy, GameObject player) : base(enemy, player) { }
-
-
         public override void OnStateEnter()
-        {
-            
+        {          
         }
 
         public override void OnStateUpdate()
         {
-
         }
 
         public override void OnStateExit()
@@ -454,8 +439,8 @@ public class slime : enemy
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-            this.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
+           // this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+           // this.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
             onTrigger = false;
         }
     }

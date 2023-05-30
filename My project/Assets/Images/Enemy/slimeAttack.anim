@@ -21,15 +21,15 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 746059689, guid: 88a85b8c25774a7408d0f8178d83d5a9, type: 3}
-    - time: 0.4
+    - time: 0.2
       value: {fileID: 967467578, guid: 88a85b8c25774a7408d0f8178d83d5a9, type: 3}
-    - time: 0.8
+    - time: 0.4
       value: {fileID: 1765217354, guid: 88a85b8c25774a7408d0f8178d83d5a9, type: 3}
-    - time: 1.2
+    - time: 0.6
       value: {fileID: -1084360586, guid: 88a85b8c25774a7408d0f8178d83d5a9, type: 3}
-    - time: 2
+    - time: 1.1
       value: {fileID: -1303204835, guid: 88a85b8c25774a7408d0f8178d83d5a9, type: 3}
-    - time: 3
+    - time: 1.5
       value: {fileID: -1303204835, guid: 88a85b8c25774a7408d0f8178d83d5a9, type: 3}
     attribute: m_Sprite
     path: 
@@ -61,7 +61,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 3.1
+    m_StopTime: 1.6
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -88,21 +88,21 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.2
+  - time: 0.6
     functionName: AttackDash2
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2
+  - time: 1.1
     functionName: AttackDash3
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 3
+  - time: 1.5
     functionName: AttackDash4
     data: 
     objectReferenceParameter: {fileID: 0}
