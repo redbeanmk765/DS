@@ -12,68 +12,73 @@ public class mousePointer : MonoBehaviour
     int dir;
     [SerializeField] Transform player;
     [SerializeField] Transform weapon;
+    public bool isAttackMontion;
     private void Start()
     {
         animator = GetComponent<Animator>();
         weaponAnimator = weapon.GetComponent<Animator>();
-
+        isAttackMontion = false;
     }
     private void Update()
     {
-        target = player.transform.position;
-        mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
-        //this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        angleForWeapon = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) + 1.5708f;
-
-        if(angle >= -45 && angle < 45)
+        if (isAttackMontion == false)
         {
-            dir = 0;
-            animator.SetFloat("angle", 0);
+            target = player.transform.position;
+            mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
+            //this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            angleForWeapon = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) + 1.5708f;
 
-            if (weapon.transform.localScale.y < 0)
+            if (angle >= -45 && angle < 45)
             {
-                weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
+                dir = 0;
+                animator.SetFloat("angle", 0);
+
+                if (weapon.transform.localScale.y < 0)
+                {
+                    weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
+                }
+
             }
+            else if (angle >= 45 && angle < 135)
+            {
+                dir = 90;
+                animator.SetFloat("angle", 0.33f);
+
+                if (weapon.transform.localScale.y < 0)
+                {
+                    weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
+                }
+            }
+            else if (angle >= 135 || angle < -135)
+            {
+                dir = 180;
+                animator.SetFloat("angle", 0.66f);
+
+                if (weapon.transform.localScale.y > 0)
+                {
+                    weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
+                }
+            }
+            else if (angle >= -135 && angle < -45)
+            {
+                dir = -90;
+                animator.SetFloat("angle", 1);
+
+                if (weapon.transform.localScale.y < 0)
+                {
+                    weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
+                }
+            }
+            //this.transform.rotation = Quaternion.AngleAxis(dir, Vector3.forward);
+
+            var x = 0.6f * Mathf.Sin(angleForWeapon);
+            var y = 0.6f * Mathf.Cos(angleForWeapon);
+
+            weapon.transform.position = transform.position + new Vector3(x, -y);
+            weapon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         }
-        else if (angle >= 45 && angle < 135)
-        {
-            dir = 90;
-            animator.SetFloat("angle", 0.33f);
-
-            if (weapon.transform.localScale.y < 0)
-            {
-                weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
-            }
-        }
-        else if (angle >= 135 || angle < -135)
-        {
-            dir = 180;
-            animator.SetFloat("angle", 0.66f);
-
-            if (weapon.transform.localScale.y > 0)
-            {
-                weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
-            }
-        }
-        else if (angle >= -135 && angle < -45)
-        {
-            dir = -90;
-            animator.SetFloat("angle", 1);
-
-            if (weapon.transform.localScale.y < 0)
-            {
-                weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, weapon.transform.localScale.y * -1, weapon.transform.localScale.z);
-            }
-        }
-        //this.transform.rotation = Quaternion.AngleAxis(dir, Vector3.forward);
-
-        var x = 0.6f * Mathf.Sin(angleForWeapon);
-        var y = 0.6f * Mathf.Cos(angleForWeapon);
-        weapon.transform.position = transform.position + new Vector3(x, -y);
-        weapon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
         if (Input.GetMouseButtonDown(0))
         {
             weaponAnimator.SetBool("onClick", true);

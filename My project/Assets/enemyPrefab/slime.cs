@@ -288,7 +288,7 @@ public class slime : enemy
             // this.transform.position = Vector3.MoveTowards(this.transform.position, targetPos, 0.05f);
             if (this.curState != State.die)
             {
-                transform.position += MoveTowardsVector * 2f * Time.fixedDeltaTime;
+                transform.position += MoveTowardsVector * 10f * Time.deltaTime;
             }
             if (isDash == false)
             {

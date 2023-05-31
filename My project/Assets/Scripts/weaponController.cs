@@ -23,6 +23,7 @@ public class weaponController : MonoBehaviour
         if (weapon.type == weapon.Type.stick)
         {
             this.transform.Find("HitBox").gameObject.SetActive(true);
+            this.transform.parent.GetComponent<mousePointer>().isAttackMontion = true;
             this.GetComponent<Animator>().SetBool("isAttackMotion", false);
         }
     }
@@ -31,6 +32,7 @@ public class weaponController : MonoBehaviour
         if (weapon.type == weapon.Type.stick) 
         { 
             this.transform.Find("HitBox").gameObject.SetActive(false);
+            this.transform.parent.GetComponent<mousePointer>().isAttackMontion = false;
             this.GetComponent<Animator>().SetBool("isAttackMotion", true);
         }
 
