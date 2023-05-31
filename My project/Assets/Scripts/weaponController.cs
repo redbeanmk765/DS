@@ -5,17 +5,21 @@ using UnityEngine;
 public class weaponController : MonoBehaviour
 {
     public weapon weapon;
+    public GameObject hitBox;
 
     // Start is called before the first frame update
     void Start()
     {
+        hitBox = Instantiate(weapon.playerHitBox); ;
+        hitBox.name = "HitBox";
+        hitBox.transform.SetParent(this.transform, false);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        this.GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
     }   
 
     public void AttackMotion1()

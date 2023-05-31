@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: stick
   m_EditorClassIdentifier: 
   dmg: 2
-  playerWeapon: {fileID: 0}
+  playerHitBox: {fileID: 2154532109531154345, guid: 03e4d5fdacb06f745abb5069119a798a, type: 3}
+  weaponAnimator: {fileID: 9100000, guid: ffc0cd2974d648a4392f0b2a7196dedb, type: 2}
   type: 0

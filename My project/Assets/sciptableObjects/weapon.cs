@@ -7,7 +7,8 @@ using UnityEngine;
 public class weapon : ScriptableObject
 {
     public int dmg;
-    [SerializeField] public GameObject playerWeapon;
+    [SerializeField] public GameObject playerHitBox;
+    [SerializeField] public RuntimeAnimatorController weaponAnimator;
     public Type type;
 
     public enum Type
