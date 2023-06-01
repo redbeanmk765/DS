@@ -174,7 +174,10 @@ public class slime : enemy
             {
                 yield break;
             }
-            ChangeState(State.idle);
+            if (this.curState != State.die)
+            {
+                ChangeState(State.idle);
+            }
             onWake = false;
         }
         if (onWake == false)
@@ -421,17 +424,17 @@ public class slime : enemy
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-       
- 
-        
-        if (col.gameObject.CompareTag("Player"))
+        if (this.curState != State.die)
         {
-            this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-            this.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
-            onTrigger = true;
-            col.gameObject.GetComponent<playerStat>().damage = monsterStat.damage;
-            colPlayer = col.gameObject;
-            StartCoroutine(WaitForDamage());
+            if (col.gameObject.CompareTag("Player"))
+            {
+                this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+                this.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
+                onTrigger = true;
+                col.gameObject.GetComponent<playerStat>().damage = monsterStat.damage;
+                colPlayer = col.gameObject;
+                StartCoroutine(WaitForDamage());
+            }
         }
     }
 
@@ -465,11 +468,14 @@ public class slime : enemy
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("attack"))
+        if (this.curState != State.die)
         {
-            this.dmg += col.gameObject.GetComponent<weaponStat>().dmg;
-            
+            if (col.CompareTag("attack"))
+            {
+                this.dmg += col.gameObject.GetComponent<weaponStat>().dmg;
 
+
+            }
         }
     }
 

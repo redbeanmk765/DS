@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2154532109531154348}
   - component: {fileID: 2154532109531154338}
   m_Layer: 0
-  m_Name: HitBox
+  m_Name: WoodenStickHitBox
   m_TagString: attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

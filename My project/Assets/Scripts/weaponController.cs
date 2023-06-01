@@ -10,7 +10,7 @@ public class weaponController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hitBox = Instantiate(weapon.playerHitBox); ;
+        hitBox = Instantiate(weapon.playerHitBox); 
         hitBox.name = "HitBox";
         hitBox.transform.SetParent(this.transform, false);
 
@@ -28,7 +28,14 @@ public class weaponController : MonoBehaviour
         {
             this.transform.Find("HitBox").gameObject.SetActive(true);
             this.transform.parent.GetComponent<mousePointer>().isAttackMontion = true;
-            this.GetComponent<Animator>().SetBool("isAttackMotion", false);
+            this.GetComponent<Animator>().SetBool("isAttackMotion", true);
+
+        }
+
+        else if (weapon.type == weapon.Type.bow)
+        {
+            this.transform.parent.GetComponent<mousePointer>().isAttackMontion = true;
+            this.GetComponent<Animator>().SetBool("isAttackMotion", true);
         }
     }
     public void AttackMotion2()
@@ -37,8 +44,29 @@ public class weaponController : MonoBehaviour
         { 
             this.transform.Find("HitBox").gameObject.SetActive(false);
             this.transform.parent.GetComponent<mousePointer>().isAttackMontion = false;
-            this.GetComponent<Animator>().SetBool("isAttackMotion", true);
+            this.GetComponent<Animator>().SetBool("isAttackMotion", false);
+            this.GetComponent<Animator>().SetBool("isAttackCooltime", true);
+            StartCoroutine(AttackCooltime());
         }
+
+        else if (weapon.type == weapon.Type.bow)
+        {
+            this.transform.parent.GetComponent<mousePointer>().isAttackMontion = false;
+            this.GetComponent<Animator>().SetBool("isAttackMotion", false);
+            this.GetComponent<Animator>().SetBool("isAttackCooltime", true);
+            hitBox = Instantiate(weapon.playerHitBox);
+            hitBox.name = "Arrow";
+            hitBox.transform.SetParent(this.transform, false);
+            StartCoroutine(AttackCooltime());
+        }
+
+    }
+
+    IEnumerator AttackCooltime()
+    {       
+        yield return new WaitForSeconds(weapon.attackSpeed);
+        this.GetComponent<Animator>().SetBool("isAttackCooltime", false);
+        yield break;
 
     }
 }

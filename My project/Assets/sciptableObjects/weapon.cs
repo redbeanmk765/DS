@@ -10,10 +10,12 @@ public class weapon : ScriptableObject
     [SerializeField] public GameObject playerHitBox;
     [SerializeField] public RuntimeAnimatorController weaponAnimator;
     public Type type;
+    public float attackSpeed;
 
     public enum Type
     {
-        stick
+        stick,
+        bow
     }
 
 
