@@ -10,9 +10,9 @@ public class weaponController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hitBox = Instantiate(weapon.playerHitBox); 
-        hitBox.name = "HitBox";
-        hitBox.transform.SetParent(this.transform, false);
+        //hitBox = Instantiate(weapon.playerHitBox); 
+       // hitBox.name = "HitBox";
+       // hitBox.transform.SetParent(this.transform, false);
 
     }
 
@@ -20,6 +20,8 @@ public class weaponController : MonoBehaviour
     void Update()
     {
         this.GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
+   
+     
     }   
 
     public void AttackMotion1()
@@ -56,7 +58,10 @@ public class weaponController : MonoBehaviour
             this.GetComponent<Animator>().SetBool("isAttackCooltime", true);
             hitBox = Instantiate(weapon.playerHitBox);
             hitBox.name = "Arrow";
-            hitBox.transform.SetParent(this.transform, false);
+            //hitBox.transform.SetParent(this.transform, false);
+            hitBox.transform.rotation = this.transform.rotation;
+            hitBox.transform.position = this.transform.position;
+          
             StartCoroutine(AttackCooltime());
         }
 

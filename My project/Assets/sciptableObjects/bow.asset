@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: bow
   m_EditorClassIdentifier: 
   dmg: 0
-  playerHitBox: {fileID: 0}
+  playerHitBox: {fileID: 8930346291737509613, guid: c28262bcf245e024d980230c30ba7c5d, type: 3}
   weaponAnimator: {fileID: 9100000, guid: 01a65aba6136973469a0394429022deb, type: 2}
   type: 1
   attackSpeed: 1

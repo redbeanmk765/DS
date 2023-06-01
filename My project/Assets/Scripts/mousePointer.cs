@@ -25,8 +25,7 @@ public class mousePointer : MonoBehaviour
         {
             target = player.transform.position;
             mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
-            //this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;        
             angleForWeapon = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) + 1.5708f;
 
             if (angle >= -45 && angle < 45)
@@ -72,10 +71,10 @@ public class mousePointer : MonoBehaviour
             }
             //this.transform.rotation = Quaternion.AngleAxis(dir, Vector3.forward);
 
-            var x = 0.6f * Mathf.Sin(angleForWeapon);
-            var y = 0.6f * Mathf.Cos(angleForWeapon);
+            var x = 0.5f * Mathf.Sin(angleForWeapon);
+            var y = 0.5f * Mathf.Cos(angleForWeapon);
 
-            weapon.transform.position = transform.position + new Vector3(x, -y);
+            weapon.transform.position = transform.position + new Vector3(x, (-y - 0.2f) );
             weapon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         }
