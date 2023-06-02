@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: stick
   m_EditorClassIdentifier: 
   dmg: 2
+  weaponNumber: 101
+  objectSprite: {fileID: 21300000, guid: 0754b244926d64d449b924dad99f13d5, type: 3}
+  objectName: WoodenStick
   playerHitBox: {fileID: 2154532109531154345, guid: 03e4d5fdacb06f745abb5069119a798a, type: 3}
   weaponAnimator: {fileID: 9100000, guid: ffc0cd2974d648a4392f0b2a7196dedb, type: 2}
   type: 0

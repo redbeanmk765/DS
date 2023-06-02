@@ -6,6 +6,7 @@ using TMPro;
 
 public class getableItems : MonoBehaviour
 {
+    public weapon weapon;
     public GameObject obj;
     public TMP_Text nameText;
     public int itemNumber;   //1은 무기, 3은 소비템

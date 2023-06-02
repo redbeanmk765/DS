@@ -13,7 +13,6 @@ public class playerStat : MonoBehaviour
     public Sprite tmpItemSprite;
     public GameObject nearObj;
     public GameObject player;
-
     public bool isItemNear;
     public bool isItemGot = false;  
     public int item1Number = 0;
@@ -33,13 +32,16 @@ public class playerStat : MonoBehaviour
     public bool playerDie = false;
     public bool onFlash = false;
     public int itemType;
+    public weapon tmpWeapon;
+    public GameObject weaponController;
+    public float dashCooltime;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        weaponController = this.gameObject.transform.Find("weaponController").GetComponent<weaponController>().gameObject;
         maxHp = 100;
         nowHp = maxHp / 2;
         dmg = 1;
@@ -92,6 +94,17 @@ public class playerStat : MonoBehaviour
 
                     case 1:
                     {
+                            nearObj.GetComponent<getableItems>().itemNumber = weaponController.GetComponent<weaponController>().weapon.weaponNumber;
+                            nearObj.GetComponent<SpriteRenderer>().sprite = weaponController.GetComponent<weaponController>().weapon.objectSprite;
+                            nearObj.GetComponent<getableItems>().weapon = weaponController.GetComponent<weaponController>().weapon;
+                            nearObj.GetComponent<getableItems>().objectName = weaponController.GetComponent<weaponController>().weapon.objectName;
+                            nearObj.gameObject.name = nearObj.GetComponent<getableItems>().objectName;
+                            nearObj.GetComponent<getableItems>().nameText.text = nearObj.GetComponent<getableItems>().objectName;
+                            weaponController.GetComponent<weaponController>().weapon = tmpWeapon;
+                            weaponController.GetComponent<weaponController>().weaponChanged = true;
+                            GetNearObject();
+                            this.gameObject.GetComponent<mousePointer>().isAttackMontion = false;
+
 
                             break;
                     }
@@ -176,19 +189,23 @@ public class playerStat : MonoBehaviour
             yield break;
         }
     }
+    public void GetNearObject()
+    {     
+        tmpItemNumber = nearObj.GetComponent<getableItems>().itemNumber;
+        tmpItemSprite = nearObj.GetComponent<SpriteRenderer>().sprite;
+        itemType = tmpItemNumber / 100;
+        this.tmpWeapon = nearObj.GetComponent<getableItems>().weapon;
+    }
     private void OnTriggerEnter2D(Collider2D col)
     {
-        nearObj = col.gameObject;
+        
         if (col.CompareTag("getableItems"))
         {
-            //Debug.Log("An item is near");
+            nearObj = col.gameObject;
             isItemNear = true;
-            tmpItemNumber = col.GetComponent<getableItems>().itemNumber;
-            tmpItemSprite = col.GetComponent<SpriteRenderer>().sprite;
-            itemType = tmpItemNumber / 100;
+            GetNearObject();
         }
     }
-
     private void OnTriggerExit2D(Collider2D col)
     {
 
@@ -196,9 +213,15 @@ public class playerStat : MonoBehaviour
         {
             //Debug.Log("An item is not near");
             isItemNear = false;
+            tmpItemNumber = 0;
+            tmpItemSprite = default;
+            itemType = 0;
+            this.tmpWeapon = default;
+            nearObj = default;
 
 
         }
+       
     }
 
 

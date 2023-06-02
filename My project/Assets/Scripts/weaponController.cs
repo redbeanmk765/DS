@@ -6,28 +6,39 @@ public class weaponController : MonoBehaviour
 {
     public weapon weapon;
     public GameObject hitBox;
+    public bool weaponChanged;
 
     // Start is called before the first frame update
     void Start()
     {
-        //hitBox = Instantiate(weapon.playerHitBox); 
-       // hitBox.name = "HitBox";
-       // hitBox.transform.SetParent(this.transform, false);
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         this.GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
-   
-     
-    }   
 
+        
+    }
+    public void HitboxInit()
+    {
+        Destroy(this.transform.Find("HitBox").gameObject);
+        hitBox = Instantiate(weapon.playerHitBox); 
+        hitBox.name = "HitBox";
+        hitBox.transform.SetParent(this.transform, false);
+        weaponChanged = false;
+    }
     public void AttackMotion1()
     {
+        Debug.Log(this.weaponChanged);
         if (weapon.type == weapon.Type.stick)
         {
+            if(this.weaponChanged == true)
+            {
+                HitboxInit();
+            }
+ 
             this.transform.Find("HitBox").gameObject.SetActive(true);
             this.transform.parent.GetComponent<mousePointer>().isAttackMontion = true;
             this.GetComponent<Animator>().SetBool("isAttackMotion", true);
