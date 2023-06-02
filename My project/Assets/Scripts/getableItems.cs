@@ -8,7 +8,7 @@ public class getableItems : MonoBehaviour
 {
     public GameObject obj;
     public TMP_Text nameText;
-    public int itemNumber;   //0은 무기, 1은 투구, 2는 갑옷, 3은 소비템
+    public int itemNumber;   //1은 무기, 3은 소비템
     bool isNear;
 
     public string objectName;

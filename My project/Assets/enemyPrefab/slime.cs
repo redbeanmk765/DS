@@ -17,7 +17,7 @@ public class slime : enemy
     public Vector3 targetPos;
     public bool isDash;
     public int nowHp;
-    public int dmg;
+    public int damaged;
     public Vector3 MoveTowardsVector;
 
     private enum State
@@ -42,7 +42,7 @@ public class slime : enemy
 
         nowHp = monsterStat.maxHp;
         animator = GetComponent<Animator>();
-        Debug.Log(monsterStat.damage);
+
         onFlash = false;
         IsDie = false;
     }
@@ -51,10 +51,10 @@ public class slime : enemy
     private void Update()
     {
 
-        if (this.dmg != 0)
+        if (this.damaged != 0)
         {
-            nowHp -= this.dmg;
-            this.dmg = 0;
+            nowHp -= this.damaged;
+            this.damaged = 0;
             onFlash = true;
             StartCoroutine(FlashWhite());
         }
@@ -411,7 +411,7 @@ public class slime : enemy
         public override void OnStateUpdate()
         {
             
-            curEnemy.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, ((curEnemy.gameObject.GetComponent<SpriteRenderer>().color.a) - 1 * Time.deltaTime));
+            curEnemy.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, ((curEnemy.gameObject.GetComponent<SpriteRenderer>().color.a) - 1 * Time.deltaTime));
           
         }
 
@@ -431,7 +431,7 @@ public class slime : enemy
                 this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
                 this.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
                 onTrigger = true;
-                col.gameObject.GetComponent<playerStat>().damage = monsterStat.damage;
+                col.gameObject.GetComponent<playerStat>().damaged = monsterStat.damage;
                 colPlayer = col.gameObject;
                 StartCoroutine(WaitForDamage());
             }
@@ -458,7 +458,7 @@ public class slime : enemy
             {
                 yield break;
             }
-            colPlayer.gameObject.GetComponent<playerStat>().damage = monsterStat.damage;
+            colPlayer.gameObject.GetComponent<playerStat>().damaged = monsterStat.damage;
         }
         if (onTrigger == false)
         {
@@ -468,12 +468,14 @@ public class slime : enemy
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+       
         if (this.curState != State.die)
         {
+            
             if (col.CompareTag("attack"))
             {
-                this.dmg += col.gameObject.GetComponent<weaponStat>().dmg;
-
+               
+                this.damaged += col.gameObject.GetComponent<weaponStat>().dmg;
 
             }
         }

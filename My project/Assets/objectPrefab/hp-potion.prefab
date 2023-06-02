@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5121920241367219583}
   - component: {fileID: 5121920241367219582}
   m_Layer: 0
-  m_Name: hp-potion
+  m_Name: HP-potion
   m_TagString: getableItems
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1306856059
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 66eebbcb5f9d7d64ab5e338f9e8a5826, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

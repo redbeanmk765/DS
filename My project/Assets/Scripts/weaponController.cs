@@ -36,7 +36,7 @@ public class weaponController : MonoBehaviour
 
         else if (weapon.type == weapon.Type.bow)
         {
-            this.transform.parent.GetComponent<mousePointer>().isAttackMontion = true;
+           // this.transform.parent.GetComponent<mousePointer>().isAttackMontion = true;
             this.GetComponent<Animator>().SetBool("isAttackMotion", true);
         }
     }
@@ -53,7 +53,7 @@ public class weaponController : MonoBehaviour
 
         else if (weapon.type == weapon.Type.bow)
         {
-            this.transform.parent.GetComponent<mousePointer>().isAttackMontion = false;
+            //this.transform.parent.GetComponent<mousePointer>().isAttackMontion = false;
             this.GetComponent<Animator>().SetBool("isAttackMotion", false);
             this.GetComponent<Animator>().SetBool("isAttackCooltime", true);
             hitBox = Instantiate(weapon.playerHitBox);
@@ -61,7 +61,8 @@ public class weaponController : MonoBehaviour
             //hitBox.transform.SetParent(this.transform, false);
             hitBox.transform.rotation = this.transform.rotation;
             hitBox.transform.position = this.transform.position;
-          
+            hitBox.gameObject.GetComponent<weaponStat>().dmg = this.weapon.dmg;
+
             StartCoroutine(AttackCooltime());
         }
 

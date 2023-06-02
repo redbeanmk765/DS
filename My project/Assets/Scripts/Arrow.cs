@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+    public int dmg;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,17 @@ public class Arrow : MonoBehaviour
         pos.x = Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad);
         pos.y = Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad);
 
-        this.transform.position = Vector3.MoveTowards(this.transform.position, this.transform.position + (pos),  5f * Time.deltaTime);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, this.transform.position + (pos),  8f * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (!col.CompareTag("Player"))
+        {
+          
+                Destroy(this.gameObject);
+
+
+        }
     }
 }

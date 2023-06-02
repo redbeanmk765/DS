@@ -7,13 +7,15 @@ using UnityEngine.UI;
 
 public class playerStat : MonoBehaviour
 {
+    public Material originalMaterial;
+    public Material flashMaterial;
     public int tmpItemNumber = 0;
     public Sprite tmpItemSprite;
     public GameObject nearObj;
     public GameObject player;
 
     public bool isItemNear;
-    public bool isItemGot = false;
+    public bool isItemGot = false;  
     public int item1Number = 0;
     public int item2Number = 0;
     public int item3Number = 0;
@@ -23,18 +25,21 @@ public class playerStat : MonoBehaviour
     public Image PlayerHpBar;
     public float maxHp;
     public float nowHp;
-    public float damage;
+    public float damaged;
     public float cure = 0;
     public int dmg;
     public float atkSpeed = 1;
     public bool attacked = false;
     public bool playerDie = false;
+    public bool onFlash = false;
+    public int itemType;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+
         maxHp = 100;
         nowHp = maxHp / 2;
         dmg = 1;
@@ -43,8 +48,20 @@ public class playerStat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.damaged != 0)
+        {
+            if (!onFlash)
+            {
+                nowHp = nowHp - damaged;
+                onFlash = true;
+                StartCoroutine(FlashWhite());
+            }
+            this.damaged = 0;
+            
+            
+        }
         nowHp = nowHp + cure;
-        nowHp = nowHp - damage;
+        
 
         if (nowHp <= 0)
         {
@@ -54,7 +71,7 @@ public class playerStat : MonoBehaviour
         }
 
         cure = 0;
-        damage = 0;
+        damaged = 0;
 
         if(nowHp > maxHp)
         {
@@ -70,46 +87,95 @@ public class playerStat : MonoBehaviour
         {
             if (isItemNear)
             {
-               // Debug.Log("pressed E");
-                if (item1Number == 0)
+                switch (itemType)
                 {
-                   // Debug.Log("Item1 is got");
-                    item1Number = tmpItemNumber;
-                    item1.sprite = tmpItemSprite;
-                    item1.gameObject.SetActive(true);
-                    isItemGot = true;
-                }
 
-                else if (item2Number == 0)
-                {
-                    item2Number = tmpItemNumber;
-                    item2.sprite = tmpItemSprite;
-                    item2.gameObject.SetActive(true);
-                    isItemGot = true;
-                }
+                    case 1:
+                    {
 
-                else if (item3Number == 0)
-                {
-                    item3Number = tmpItemNumber;
-                    item3.sprite = tmpItemSprite;
-                    item3.gameObject.SetActive(true);
-                    isItemGot = true;
-                }
+                            break;
+                    }
 
-                else
-                { }
+                    case 3:
+                    { 
+                        if (item1Number == 0)
+                        {
+                            item1Number = tmpItemNumber;
+                            item1.sprite = tmpItemSprite;
+                            item1.gameObject.SetActive(true);
+                            isItemGot = true;
+                        }
 
-                if (isItemGot == true)
-                {
-                    Destroy(nearObj);
-                    isItemGot = false;
+                        else if (item2Number == 0)
+                        {
+                            item2Number = tmpItemNumber;
+                            item2.sprite = tmpItemSprite;
+                            item2.gameObject.SetActive(true);
+                            isItemGot = true;
+                        }
+
+                        else if (item3Number == 0)
+                        {
+                            item3Number = tmpItemNumber;
+                            item3.sprite = tmpItemSprite;
+                            item3.gameObject.SetActive(true);
+                            isItemGot = true;
+                        }
+
+                        else
+                         { }
+
+                        if (isItemGot == true)
+                        {
+                            Destroy(nearObj);
+                            isItemGot = false;
+
+                        }
+                         break;
+                    }
                 }
+                
             }
 
         }
 
     }
+    IEnumerator FlashWhite()
+    {
+        while (onFlash)
+        {
+            this.GetComponent<SpriteRenderer>().material = this.flashMaterial;
+            yield return new WaitForSeconds(0.1f);
+            this.GetComponent<SpriteRenderer>().material = this.originalMaterial;
+            yield return new WaitForSeconds(0.1f);
 
+            for (int i = 0; i <= 4; i++)
+            {
+             
+                this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.4f);
+                yield return new WaitForSeconds(0.1f);
+                this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                yield return new WaitForSeconds(0.2f);
+            }
+
+            this.GetComponent<SpriteRenderer>().material = this.originalMaterial;
+
+
+
+
+            if (onFlash == false)
+            {
+                yield break;
+            }
+            onFlash = false;
+
+
+        }
+        if (onFlash == false)
+        {
+            yield break;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D col)
     {
         nearObj = col.gameObject;
@@ -119,6 +185,7 @@ public class playerStat : MonoBehaviour
             isItemNear = true;
             tmpItemNumber = col.GetComponent<getableItems>().itemNumber;
             tmpItemSprite = col.GetComponent<SpriteRenderer>().sprite;
+            itemType = tmpItemNumber / 100;
         }
     }
 

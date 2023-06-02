@@ -31,9 +31,13 @@ public class TrapObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (onTrigger)
+        {
+            onObj.gameObject.GetComponent<playerStat>().damaged = this.dmg;
+        }
 
 
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -41,9 +45,9 @@ public class TrapObject : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             onTrigger = true;
-            col.gameObject.GetComponent<playerStat>().damage = this.dmg;
+            //col.gameObject.GetComponent<playerStat>().damaged = this.dmg;
             onObj = col.gameObject;
-            StartCoroutine(WaitForDamage());
+           // StartCoroutine(WaitForDamage());
         }
     }
 
@@ -55,21 +59,21 @@ public class TrapObject : MonoBehaviour
         }
     }
 
-    IEnumerator WaitForDamage()
-    {
-        while (onTrigger) 
-        {
-            yield return new WaitForSeconds(1.0f);
+    //IEnumerator WaitForDamage()
+    //{
+    //    while (onTrigger) 
+    //    {
+    //        yield return new WaitForSeconds(1.0f);
 
-            if (onTrigger == false)
-            {
-                yield break;
-            }
-            onObj.gameObject.GetComponent<playerStat>().damage = this.dmg;
-        }
-        if(onTrigger == false)
-        {
-            yield break;
-        }
-    }
+    //        if (onTrigger == false)
+    //        {
+    //            yield break;
+    //        }
+    //        onObj.gameObject.GetComponent<playerStat>().damaged = this.dmg;
+    //    }
+    //    if(onTrigger == false)
+    //    {
+    //        yield break;
+    //    }
+    //}
 }
