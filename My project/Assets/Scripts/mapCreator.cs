@@ -1,14 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using System.Linq;
+
 
 public class mapCreator : MonoBehaviour
 {
+
+    public Tilemap Map;
+    public Tilemap Wall;
+    public TileBase floorTile;
+
+    public TileBase ceilingTile;
+    public TileBase wallTile;
+    public TileBase wall2Tile;
+
+    public int RoomX;
+    public int RoomY;
     // Start is called before the first frame update
     void Start()
-    {
+    {      
+        for (int x = -8; x < 8; x++)
+        {
+            for (int y = -6; y < 6; y++)
+            {
+                Map.SetTile(new Vector3Int(RoomX + x, RoomY + y, 0), floorTile);
+            }
+        }
+
+        for (int y = -6; y < 6; y++)
+        {
+
+            Wall.SetTile(new Vector3Int(RoomX + -8 , RoomY + y, 0), ceilingTile);
+            Wall.SetTile(new Vector3Int(RoomX + -7, RoomY + y, 0), ceilingTile);
+            Wall.SetTile(new Vector3Int(RoomX + 6, RoomY + y, 0), ceilingTile);
+            Wall.SetTile(new Vector3Int(RoomX + 7, RoomY + y, 0), ceilingTile);
+
+        }
+
+        for (int x = -6; x < 6; x++)
+        {
+
+            Wall.SetTile(new Vector3Int(RoomX + x, RoomY + -6, 0), ceilingTile);
+            Wall.SetTile(new Vector3Int(RoomX + x, RoomY + -5, 0), ceilingTile);
+            Wall.SetTile(new Vector3Int(RoomX + x, RoomY + 4, 0), wallTile);
+            Wall.SetTile(new Vector3Int(RoomX + x, RoomY + 5, 0), ceilingTile);
+
+        }
+
         
+
+
     }
 
     // Update is called once per frame
@@ -27,7 +70,7 @@ public class mapCreator : MonoBehaviour
     static public int boosRoomStep;
     static public int boosRoomNum;
 
-    static void Main(string[] args)
+    static void CreateMap(string[] args)
     {
 
         int startRoom = 45;
@@ -54,7 +97,7 @@ public class mapCreator : MonoBehaviour
             boosRoomNum = 0;
         }
 
-        for (int i = 0; i <= 8; i++)
+        for (int i = 0; i <= 9; i++)
         {
             for (int j = 0; j <= 9; j++)
             { 
