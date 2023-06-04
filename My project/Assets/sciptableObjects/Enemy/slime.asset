@@ -17,6 +17,6 @@ MonoBehaviour:
   level: 1
   damage: 10
   race: 0
-  moveSpeed: 0.3
+  moveSpeed: 0.6
   originalMaterial: {fileID: 2100000, guid: 4ccb5f4248e5eb74085624dec92fdb1e, type: 2}
   flashMaterial: {fileID: 2100000, guid: 25dee93cbde919c4c827e5f3c10967f8, type: 2}

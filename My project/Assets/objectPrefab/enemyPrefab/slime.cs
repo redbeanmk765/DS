@@ -168,7 +168,7 @@ public class slime : enemy
     {         
         while (onWake)
         {           
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.0f);
 
             if (onWake == false)
             {
@@ -216,7 +216,7 @@ public class slime : enemy
 
     private bool CanSeePlayer()
     {
-        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 3)
+        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 5)
         {
 
             return true;
