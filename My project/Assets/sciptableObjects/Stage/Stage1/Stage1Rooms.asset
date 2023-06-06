@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a367aaa2b1cd0f744b95ff51dc153962, type: 3}
+  m_Name: Stage1Rooms
+  m_EditorClassIdentifier: 
+  BossRoom: {fileID: 0}
+  EliteRoom: {fileID: 0}
+  ShopRoom: {fileID: 0}
+  ChestRoom: {fileID: 0}
+  EasyRooms:
+  - {fileID: 8412617709731348328, guid: ee76fe6867e3b0742b548aef8d8de1c4, type: 3}
+  - {fileID: 5131391670527365705, guid: 804e4e4beaa2b574d8d9924d220c655a, type: 3}
+  NormRooms:
+  - {fileID: 8412617709731348328, guid: ee76fe6867e3b0742b548aef8d8de1c4, type: 3}
+  - {fileID: 5131391670527365705, guid: 804e4e4beaa2b574d8d9924d220c655a, type: 3}
+  HardRooms:
+  - {fileID: 8412617709731348328, guid: ee76fe6867e3b0742b548aef8d8de1c4, type: 3}
+  - {fileID: 5131391670527365705, guid: 804e4e4beaa2b574d8d9924d220c655a, type: 3}
