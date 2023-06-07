@@ -21,13 +21,13 @@ public class getableItems : MonoBehaviour
     {
         nameText.text = objectName;
         nameText.gameObject.SetActive(false);
-        position = this.transform.position;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        nameText.transform.position = new Vector3(position.x, position.y + 0.5f, position.z);
+        nameText.transform.position = this.transform.position + new Vector3(0, 0.5f, 0); ;
     }
 
     private void OnTriggerEnter2D(Collider2D col)

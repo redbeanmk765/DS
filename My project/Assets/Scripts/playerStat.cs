@@ -93,7 +93,8 @@ public class playerStat : MonoBehaviour
                 {
 
                     case 1:
-                    {
+                    {       
+                            
                             nearObj.GetComponent<getableItems>().itemNumber = weaponController.GetComponent<weaponController>().weapon.weaponNumber;
                             nearObj.GetComponent<SpriteRenderer>().sprite = weaponController.GetComponent<weaponController>().weapon.objectSprite;
                             nearObj.GetComponent<getableItems>().weapon = weaponController.GetComponent<weaponController>().weapon;
@@ -104,6 +105,24 @@ public class playerStat : MonoBehaviour
                             weaponController.GetComponent<weaponController>().weaponChanged = true;
                             GetNearObject();
                             this.gameObject.GetComponent<mousePointer>().isAttackMontion = false;
+
+                            var dir = this.gameObject.GetComponent<mousePointer>().dir;
+
+                            switch (dir)
+                            {
+                                case 0:
+                                    nearObj.transform.position = this.transform.position + new Vector3(0.5f, 0, 0);
+                                    break;
+                                case 1:
+                                    nearObj.transform.position = this.transform.position + new Vector3( 0, 0.5f, 0);
+                                    break;
+                                case 2:
+                                    nearObj.transform.position = this.transform.position + new Vector3(-0.5f, 0, 0);
+                                    break;
+                                case 3:
+                                    nearObj.transform.position = this.transform.position + new Vector3(0, -0.5f, 0);
+                                    break;
+                            }
 
 
                             break;

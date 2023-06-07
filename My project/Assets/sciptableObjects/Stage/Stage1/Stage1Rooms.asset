@@ -15,7 +15,7 @@ MonoBehaviour:
   BossRoom: {fileID: 0}
   EliteRoom: {fileID: 0}
   ShopRoom: {fileID: 0}
-  ChestRoom: {fileID: 0}
+  ChestRoom: {fileID: 4721740523538283257, guid: cd2b9dc47d770914d80392543487365d, type: 3}
   EasyRooms:
   - {fileID: 8412617709731348328, guid: ee76fe6867e3b0742b548aef8d8de1c4, type: 3}
   - {fileID: 5131391670527365705, guid: 804e4e4beaa2b574d8d9924d220c655a, type: 3}

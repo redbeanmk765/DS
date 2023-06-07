@@ -31,13 +31,13 @@ public class mapCreator : MonoBehaviour
             }
         }
 
-        for (int x = -8; x < 8; x++)
-        {
-            for (int y = -6; y < 6; y++)
-            {
-                Map.gameObject.GetComponent<Tilemap>().SetTile(new Vector3Int(RoomX + x, RoomY + y, 0), floorTile);
-            }
-        }
+        //for (int x = -8; x < 8; x++)
+        //{
+        //    for (int y = -6; y < 6; y++)
+        //    {
+        //        Map.gameObject.GetComponent<Tilemap>().SetTile(new Vector3Int(RoomX + x, RoomY + y, 0), floorTile);
+        //    }
+        //}
         CreateDungeon();
 
 
@@ -45,19 +45,56 @@ public class mapCreator : MonoBehaviour
         for (int i = 0; i < roomList.Count; ++i)
         {
             GameObject TmpRoom;
-            TmpRoom = Instantiate(rooms.EasyRooms[Random.Range(0, rooms.EasyRooms.Count)]);
-            TmpRoom.transform.position = new Vector3Int(roomList[i].roomPos.x + 250, roomList[i].roomPos.y + 125, 0);
+            switch (roomList[i].roomDiff) 
+            {
+                case Diff.Start:
+                    break;
+
+                case Diff.Boss:
+                    TmpRoom = Instantiate(rooms.BossRoom);
+                    TmpRoom.transform.position = new Vector3Int(roomList[i].roomPos.x + 250, roomList[i].roomPos.y + 125, 0);
+                    break;
+
+                case Diff.Chest:
+                    TmpRoom = Instantiate(rooms.ChestRoom);
+                    TmpRoom.transform.position = new Vector3Int(roomList[i].roomPos.x + 250, roomList[i].roomPos.y + 125, 0);
+                    break;
+
+                case Diff.Shop:
+                    TmpRoom = Instantiate(rooms.ShopRoom);
+                    TmpRoom.transform.position = new Vector3Int(roomList[i].roomPos.x + 250, roomList[i].roomPos.y + 125, 0);
+                    break;
+
+                case Diff.Easy:
+                    TmpRoom = Instantiate(rooms.EasyRooms[Random.Range(0, rooms.EasyRooms.Count)]);
+                    TmpRoom.transform.position = new Vector3Int(roomList[i].roomPos.x + 250, roomList[i].roomPos.y + 125, 0);
+                    break;
+
+                case Diff.Norm:
+                    TmpRoom = Instantiate(rooms.EasyRooms[Random.Range(0, rooms.NormRooms.Count)]);
+                    TmpRoom.transform.position = new Vector3Int(roomList[i].roomPos.x + 250, roomList[i].roomPos.y + 125, 0);
+                    break;
+
+                case Diff.Hard:
+                    TmpRoom = Instantiate(rooms.EasyRooms[Random.Range(0, rooms.HardRooms.Count)]);
+                    TmpRoom.transform.position = new Vector3Int(roomList[i].roomPos.x + 250, roomList[i].roomPos.y + 125, 0);
+                    break;
+
+
+            }
+
+           
 
             for (int x = -8; x < 8; x++)
             {
                 for (int y = -6; y < 6; y++)
                 {
                     Map.gameObject.GetComponent<Tilemap>().SetTile(new Vector3Int(roomList[i].roomPos.x + x + 250, roomList[i].roomPos.y + y + 125, 0), floorTile);
-                }
-               
+                }       
             }
 
-            switch (roomList[i].dir) {
+            switch (roomList[i].dir)
+            {
                 
                 case "URDL":
                     TmpRoom = Instantiate(wallType.Wall_URDL);

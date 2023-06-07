@@ -9,7 +9,7 @@ public class mousePointer : MonoBehaviour
     Vector2 target, mouse;
     Animator animator;
     Animator weaponAnimator;
-    int dir;
+    public int dir;
     [SerializeField] Transform player;
     [SerializeField] Transform weapon;
     public bool isAttackMontion;
@@ -41,7 +41,7 @@ public class mousePointer : MonoBehaviour
             }
             else if (angle >= 45 && angle < 135)
             {
-                dir = 90;
+                dir = 1;
                 animator.SetFloat("angle", 0.33f);
 
                 if (weapon.transform.localScale.y < 0)
@@ -51,7 +51,7 @@ public class mousePointer : MonoBehaviour
             }
             else if (angle >= 135 || angle < -135)
             {
-                dir = 180;
+                dir = 2;
                 animator.SetFloat("angle", 0.66f);
 
                 if (weapon.transform.localScale.y > 0)
@@ -61,7 +61,7 @@ public class mousePointer : MonoBehaviour
             }
             else if (angle >= -135 && angle < -45)
             {
-                dir = -90;
+                dir = 3;
                 animator.SetFloat("angle", 1);
 
                 if (weapon.transform.localScale.y < 0)
@@ -78,9 +78,12 @@ public class mousePointer : MonoBehaviour
             weapon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         }
+
         if (Input.GetMouseButtonDown(0))
         {
             weaponAnimator.SetBool("onClick", true);
+
+
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -90,7 +93,9 @@ public class mousePointer : MonoBehaviour
         
 
     }
-    
+
+
+
 
 
 }

@@ -31,7 +31,7 @@ public class weaponController : MonoBehaviour
     }
     public void AttackMotion1()
     {
-        Debug.Log(this.weaponChanged);
+ 
         if (weapon.type == weapon.Type.stick)
         {
             if(this.weaponChanged == true)
