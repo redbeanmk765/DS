@@ -132,7 +132,6 @@ public class slime : enemy
             case State.die:
                 if (this.gameObject.GetComponent<SpriteRenderer>().color.a <= 0)
                 {
-                    Debug.Log("de");
                     Destroy(this.gameObject);
                 }
                 break;
