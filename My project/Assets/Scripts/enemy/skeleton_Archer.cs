@@ -145,7 +145,7 @@ public class skeleton_Archer : enemy
             //    break;
             case State.idle:
                 fsm.ChangeState(new IdleState(this, player));
-                animator.SetInteger("State", 2);
+                animator.SetInteger("State", 1);
                 break;
             //case State.move:
             //    fsm.ChangeState(new MoveState(this, player));
@@ -153,11 +153,11 @@ public class skeleton_Archer : enemy
             //    break;
             case State.attack:
                 fsm.ChangeState(new AttackState(this, player));
-                animator.SetInteger("State", 4);
+                animator.SetInteger("State", 2);
                 break;
             case State.die:
                 fsm.ChangeState(new DieState(this, player));
-                animator.SetInteger("State", 5);
+                animator.SetInteger("State", 3);
                 break;
         }
     }
@@ -165,8 +165,7 @@ public class skeleton_Archer : enemy
     private bool CanSeePlayer()
     {
         if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 10)
-        {
-
+        {   
             return true;
 
         }
@@ -198,7 +197,7 @@ public class skeleton_Archer : enemy
 
         enemyArrow.transform.position = this.transform.position;
         enemyArrow.gameObject.GetComponent<enemyArrow>().target = player;
-        enemyArrow.gameObject.GetComponent<weaponStat>().dmg = monsterStat.damage; 
+        enemyArrow.gameObject.GetComponent<enemyArrow>().dmg = monsterStat.damage; 
     }
     public void AttackShoot3()
     {    
@@ -245,6 +244,7 @@ public class skeleton_Archer : enemy
 
         public override void OnStateUpdate()
         {
+          
             float angle = Mathf.Atan2(curPlayer.transform.position.y - curEnemy.transform.position.y, curPlayer.transform.position.x - curEnemy.transform.position.x) * Mathf.Rad2Deg;
 
             if (angle >= -90 && angle < 90)

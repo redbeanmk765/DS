@@ -71,12 +71,12 @@ public class mapCreator : MonoBehaviour
                     break;
 
                 case Diff.Norm:
-                    TmpRoom = Instantiate(rooms.EasyRooms[Random.Range(0, rooms.NormRooms.Count)]);
+                    TmpRoom = Instantiate(rooms.NormRooms[Random.Range(0, rooms.NormRooms.Count)]);
                     TmpRoom.transform.position = new Vector3Int(roomList[i].roomPos.x + 250, roomList[i].roomPos.y + 125, 0);
                     break;
 
                 case Diff.Hard:
-                    TmpRoom = Instantiate(rooms.EasyRooms[Random.Range(0, rooms.HardRooms.Count)]);
+                    TmpRoom = Instantiate(rooms.HardRooms[Random.Range(0, rooms.HardRooms.Count)]);
                     TmpRoom.transform.position = new Vector3Int(roomList[i].roomPos.x + 250, roomList[i].roomPos.y + 125, 0);
                     break;
 

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e321480d0cf6e4fb4c322bbc206890, type: 3}
+  m_Name: skeletonArcher
+  m_EditorClassIdentifier: 
+  name: skeletonArcher
+  maxHp: 10
+  level: 1
+  damage: 10
+  race: 1
+  moveSpeed: 1
+  projectile: {fileID: 8966608884308532350, guid: 639b2b8369e4183458ecd140b92cea86, type: 3}
+  originalMaterial: {fileID: 2100000, guid: 4ccb5f4248e5eb74085624dec92fdb1e, type: 2}
+  flashMaterial: {fileID: 2100000, guid: 25dee93cbde919c4c827e5f3c10967f8, type: 2}

@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a367aaa2b1cd0f744b95ff51dc153962, type: 3}
   m_Name: Stage1Rooms
   m_EditorClassIdentifier: 
-  BossRoom: {fileID: 0}
-  EliteRoom: {fileID: 0}
-  ShopRoom: {fileID: 0}
+  BossRoom: {fileID: 4721740523538283257, guid: cd2b9dc47d770914d80392543487365d, type: 3}
+  EliteRoom: {fileID: 4721740523538283257, guid: cd2b9dc47d770914d80392543487365d, type: 3}
+  ShopRoom: {fileID: 4721740523538283257, guid: cd2b9dc47d770914d80392543487365d, type: 3}
   ChestRoom: {fileID: 4721740523538283257, guid: cd2b9dc47d770914d80392543487365d, type: 3}
   EasyRooms:
   - {fileID: 8412617709731348328, guid: ee76fe6867e3b0742b548aef8d8de1c4, type: 3}
   - {fileID: 5131391670527365705, guid: 804e4e4beaa2b574d8d9924d220c655a, type: 3}
   NormRooms:
-  - {fileID: 8412617709731348328, guid: ee76fe6867e3b0742b548aef8d8de1c4, type: 3}
-  - {fileID: 5131391670527365705, guid: 804e4e4beaa2b574d8d9924d220c655a, type: 3}
+  - {fileID: 3593276666793727533, guid: 4c58ff1b15458f04a9a660e5c3c5fff9, type: 3}
   HardRooms:
   - {fileID: 8412617709731348328, guid: ee76fe6867e3b0742b548aef8d8de1c4, type: 3}
   - {fileID: 5131391670527365705, guid: 804e4e4beaa2b574d8d9924d220c655a, type: 3}

@@ -29,9 +29,16 @@ public class enemyArrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.CompareTag("Enemy"))
-        {      
-                Destroy(this.gameObject);
+        if (!col.gameObject.CompareTag("Enemy") && !col.gameObject.CompareTag("attack"))
+        {
+            if (col.gameObject.CompareTag("Player"))
+            {
+                col.gameObject.GetComponent<playerStat>().damaged = this.dmg;
+
+            }
+            Destroy(this.gameObject);
         }
     }
+
+    
 }
