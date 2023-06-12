@@ -2,30 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class skeleton_Archer : enemy
+public class mushroom : enemy
 {
     public GameObject enemy;
     public GameObject player;
     public GameObject colPlayer;
     public GameObject[] players;
-    public GameObject enemyArrow;
+    public GameObject enemyProjectileUp;
+    public GameObject enemyProjectileDown;
+    public GameObject enemyProjectileLeft;
+    public GameObject enemyProjectileRight;
     public Animator animator;
     public bool onWake = false;
     public bool onTrigger = false;
     public bool attackMotionDone = true;
     public bool onFlash = false;
     public bool IsDie = false;
-    public Vector3 targetPos;
     public int nowHp;
     public int damaged;
-    public Vector3 MoveTowardsVector;
+
 
     private enum State
     {
-        //sleep,
-        //wake,
-        idle,
-        //move,
         attack,
         die
     }
@@ -37,8 +35,8 @@ public class skeleton_Archer : enemy
     {
         players = GameObject.FindGameObjectsWithTag("Player");
         player = players[0];
-        curState = State.idle;
-        fsm = new FSM(new IdleState(this, player));
+        curState = State.attack;
+        fsm = new FSM(new AttackState(this, player));
 
         nowHp = monsterStat.maxHp;
         animator = GetComponent<Animator>();
@@ -71,34 +69,7 @@ public class skeleton_Archer : enemy
 
         switch (curState)
         {
-            case State.idle:
-
-                if (CanSeePlayer())
-                {
-
-                    if (CanAttackPlayer())
-                    {
-                        ChangeState(State.attack);
-                    }
-
-                }
-                break;
             case State.attack:
-                if (attackMotionDone)
-                {
-                    if (CanSeePlayer())
-                    {
-                        if (!CanAttackPlayer())
-                        {
-                            ChangeState(State.idle);
-                        }
-
-                    }
-                    else
-                    {
-                        ChangeState(State.idle);
-                    }
-                }
                 break;
             case State.die:
                 if (this.gameObject.GetComponent<SpriteRenderer>().color.a <= 0)
@@ -140,99 +111,46 @@ public class skeleton_Archer : enemy
         curState = nextState;
         switch (curState)
         {
-            //case State.wake:
-            //    fsm.ChangeState(new wakeState(this, player));
-            //    animator.SetInteger("State", 1);
-            //    break;
-            case State.idle:
-                fsm.ChangeState(new IdleState(this, player));
-                animator.SetInteger("State", 1);
-                break;
-            //case State.move:
-            //    fsm.ChangeState(new MoveState(this, player));
-            //    animator.SetInteger("State", 3);
-            //    break;
             case State.attack:
                 fsm.ChangeState(new AttackState(this, player));
-                animator.SetInteger("State", 2);
+                animator.SetInteger("State", 1);
                 break;
             case State.die:
                 fsm.ChangeState(new DieState(this, player));
-                animator.SetInteger("State", 3);
+                animator.SetInteger("State", 2);
                 break;
         }
     }
 
-    private bool CanSeePlayer()
-    {
-        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 10)
-        {   
-            return true;
-
-        }
-        else
-            return false;
-        //  플레이어 탐지 구현
-    }
-
-    private bool CanAttackPlayer()
-    {
-        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 10)
-        {
-
-            return true;
-        }
-        else
-            return false;
-        //  사정거리 체크 구현
-    }
-
-    public void AttackShoot1()
-    {     
-        attackMotionDone = false;
-    }
-    public void AttackShoot2()
-    {
-        enemyArrow = Instantiate(monsterStat.projectile);
-        enemyArrow.name = "EnemyArrow";
-
-        enemyArrow.transform.position = this.transform.position;
-        enemyArrow.gameObject.GetComponent<enemyArrow>().target = player;
-        enemyArrow.gameObject.GetComponent<enemyArrow>().dmg = monsterStat.damage; 
-    }
-    public void AttackShoot3()
-    {    
-        attackMotionDone = true;
-    }
-
    
-    public class IdleState : BaseState
-    {
-        public IdleState(enemy enemy, GameObject player) : base(enemy, player) { }
-        public override void OnStateEnter()
-        {
-        }
 
-        public override void OnStateUpdate()
-        {
-            float angle = Mathf.Atan2(curPlayer.transform.position.y - curEnemy.transform.position.y, curPlayer.transform.position.x - curEnemy.transform.position.x) * Mathf.Rad2Deg;
-
-            if (angle >= -90 && angle < 90)
-            {
-                curEnemy.transform.localEulerAngles = new Vector3(0, 0, 0);
-            }
-            else
-            {
-                curEnemy.transform.localEulerAngles = new Vector3(0, 180, 0);
-            }
-        }
-
-        public override void OnStateExit()
-        {
-        }
-    }
+  
 
     
+    public void AttackShoot()
+    {
+        enemyProjectileUp = Instantiate(monsterStat.projectile);
+        enemyProjectileUp.transform.position = this.transform.position;
+        enemyProjectileUp.gameObject.GetComponent<enemyProjectile>().pos = new Vector3 (0,1,0);
+        enemyProjectileUp.gameObject.GetComponent<enemyProjectile>().dmg = monsterStat.damage;
+
+        enemyProjectileDown = Instantiate(monsterStat.projectile);
+        enemyProjectileDown.transform.position = this.transform.position;
+        enemyProjectileDown.gameObject.GetComponent<enemyProjectile>().pos = new Vector3(0, -1, 0);
+        enemyProjectileDown.gameObject.GetComponent<enemyProjectile>().dmg = monsterStat.damage;
+
+        enemyProjectileLeft = Instantiate(monsterStat.projectile);
+        enemyProjectileLeft.transform.position = this.transform.position;
+        enemyProjectileLeft.gameObject.GetComponent<enemyProjectile>().pos = new Vector3(-1, 0, 0);
+        enemyProjectileLeft.gameObject.GetComponent<enemyProjectile>().dmg = monsterStat.damage;
+
+        enemyProjectileRight = Instantiate(monsterStat.projectile);
+        enemyProjectileRight.transform.position = this.transform.position;
+        enemyProjectileRight.gameObject.GetComponent<enemyProjectile>().pos = new Vector3(1, 0, 0);
+        enemyProjectileRight.gameObject.GetComponent<enemyProjectile>().dmg = monsterStat.damage;
+
+    }
+  
 
     public class AttackState : BaseState
     {
@@ -245,17 +163,6 @@ public class skeleton_Archer : enemy
 
         public override void OnStateUpdate()
         {
-          
-            float angle = Mathf.Atan2(curPlayer.transform.position.y - curEnemy.transform.position.y, curPlayer.transform.position.x - curEnemy.transform.position.x) * Mathf.Rad2Deg;
-
-            if (angle >= -90 && angle < 90)
-            {
-                curEnemy.transform.localEulerAngles = new Vector3(0, 0, 0);
-            }
-            else
-            {
-                curEnemy.transform.localEulerAngles = new Vector3(0, 180, 0);
-            }
         }
 
         public override void OnStateExit()
@@ -266,11 +173,8 @@ public class skeleton_Archer : enemy
     public class DieState : BaseState
     {
         public DieState(enemy enemy, GameObject player) : base(enemy, player) { }
-
-
         public override void OnStateEnter()
         {
-
         }
 
         public override void OnStateUpdate()
@@ -307,8 +211,6 @@ public class skeleton_Archer : enemy
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            // this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-            // this.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
             onTrigger = false;
         }
     }

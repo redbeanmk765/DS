@@ -22,5 +22,6 @@ public class Monster : ScriptableObject
 public enum Race
 {
     slime,
-    skeletonArcher
+    skeletonArcher,
+    mushroom
 }
