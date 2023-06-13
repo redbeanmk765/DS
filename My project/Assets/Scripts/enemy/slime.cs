@@ -50,13 +50,17 @@ public class slime : enemy
 
     private void Update()
     {
-
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.000001f, 0);
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 0.000001f, 0);
         if (this.damaged != 0)
         {
-            nowHp -= this.damaged;
+            if (!onFlash)
+            {
+                nowHp -= this.damaged;
+                onFlash = true;
+                StartCoroutine(FlashWhite());
+            }
             this.damaged = 0;
-            onFlash = true;
-            StartCoroutine(FlashWhite());
         }
         if (nowHp <= 0)
         {

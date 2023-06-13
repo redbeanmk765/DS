@@ -52,14 +52,14 @@ TagManager:
   - name: door
     uniqueID: 1320802215
     locked: 0
-  - name: Object
-    uniqueID: 1306856059
-    locked: 0
   - name: weapon
     uniqueID: 2159556107
     locked: 0
   - name: Wall
     uniqueID: 235052357
+    locked: 0
+  - name: Object
+    uniqueID: 1306856059
     locked: 0
   - name: Player
     uniqueID: 3095224715

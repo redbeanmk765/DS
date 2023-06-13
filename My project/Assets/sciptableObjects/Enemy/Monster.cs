@@ -14,6 +14,7 @@ public class Monster : ScriptableObject
     public int damage;
     public Race race;
     public float moveSpeed;
+    public float projectileSpeed;
     public GameObject projectile;
     [SerializeField] public Material originalMaterial;
     [SerializeField] public Material flashMaterial;

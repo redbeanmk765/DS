@@ -18,6 +18,7 @@ MonoBehaviour:
   damage: 10
   race: 1
   moveSpeed: 1
+  projectileSpeed: 4
   projectile: {fileID: 8966608884308532350, guid: 639b2b8369e4183458ecd140b92cea86, type: 3}
   originalMaterial: {fileID: 2100000, guid: 4ccb5f4248e5eb74085624dec92fdb1e, type: 2}
   flashMaterial: {fileID: 2100000, guid: 25dee93cbde919c4c827e5f3c10967f8, type: 2}

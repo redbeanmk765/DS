@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class roomManager : MonoBehaviour
 {
+    public GameObject Bar;
+    public Image BossHpBar;
+    public GameObject boss;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +19,9 @@ public class roomManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(this.transform.Find("enemies").gameObject.transform.childCount == 0)
+        BossHpBar.fillAmount = Mathf.Lerp(BossHpBar.fillAmount, hpRatio, Time.deltaTime * 10);
+
+        if (this.transform.Find("enemies").gameObject.transform.childCount == 0 && this.transform.Find("Boss").gameObject.transform.childCount == 0)
         {
             this.transform.Find("doors").gameObject.SetActive(false);
         }
@@ -25,6 +33,17 @@ public class roomManager : MonoBehaviour
         {
             this.transform.Find("enemies").gameObject.SetActive(true);
             this.transform.Find("doors").gameObject.SetActive(true);
+
+            if (this.transform.Find("Boss").gameObject.transform.childCount != 0)
+            {
+
+                Bar.SetActive(true);
+               // BossHpBar = GameObject.Find("BossHpBar").GetComponent<Image>();
+            }
         }
+
+        
+        
+            
     }
 }

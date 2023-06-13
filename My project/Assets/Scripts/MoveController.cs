@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveController : MonoBehaviour
 {
-    public float moveSpeed = 2.5f;
+    public float moveSpeed;
     Vector2 move = new Vector2();
     Rigidbody2D rigidbody2D;
     public bool isDashCooltime;
@@ -17,6 +17,7 @@ public class MoveController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        moveSpeed = 3f;
         isDashCooltime = false;
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -52,7 +53,7 @@ public class MoveController : MonoBehaviour
         isDashCooltime = true;
         this.moveSpeed = 20f;
         yield return new WaitForSeconds(0.05f);
-        this.moveSpeed = 2.5f;
+        this.moveSpeed = 3f;
         StartCoroutine(DashCooltime());
         yield return new WaitForSeconds(this.gameObject.GetComponent<playerStat>().dashCooltime);
         isDashCooltime = false;

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08e321480d0cf6e4fb4c322bbc206890, type: 3}
-  m_Name: mushroom
+  m_Name: slimeKIng
   m_EditorClassIdentifier: 
-  name: 
-  maxHp: 10
+  name: slimeKing
+  maxHp: 30
   level: 1
-  damage: 10
-  race: 2
-  moveSpeed: 0
-  projectileSpeed: 4
-  projectile: {fileID: 4633070340753208432, guid: 0adc44fe1bfb4f048b3440c8c021e4b7, type: 3}
+  damage: 20
+  race: 0
+  moveSpeed: 0.4
+  projectileSpeed: 8
+  projectile: {fileID: 4633070340753208432, guid: 622f4899517996b4d9f1394c71588402, type: 3}
   originalMaterial: {fileID: 2100000, guid: 4ccb5f4248e5eb74085624dec92fdb1e, type: 2}
   flashMaterial: {fileID: 2100000, guid: 25dee93cbde919c4c827e5f3c10967f8, type: 2}

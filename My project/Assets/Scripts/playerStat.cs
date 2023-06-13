@@ -43,7 +43,7 @@ public class playerStat : MonoBehaviour
     {
         weaponController = this.gameObject.transform.Find("weaponController").GetComponent<weaponController>().gameObject;
         maxHp = 100;
-        nowHp = maxHp / 2;
+        nowHp = maxHp;
         dmg = 1;
     }
     

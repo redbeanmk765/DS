@@ -6,6 +6,7 @@ public class enemyArrow : MonoBehaviour
 {
     public int dmg;
     public float angle;
+    public float speed;
     public GameObject target;
     public Vector3 targetPos;
     Vector3 pos = new Vector3(0, 0, 0);
@@ -24,7 +25,7 @@ public class enemyArrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, this.transform.position + (pos),  4f * Time.deltaTime);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, this.transform.position + (pos), speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D col)

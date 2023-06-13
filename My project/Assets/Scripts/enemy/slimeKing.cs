@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class skeleton_Archer : enemy
+public class slimeKing : enemy
 {
     public GameObject enemy;
     public GameObject player;
     public GameObject colPlayer;
     public GameObject[] players;
-    public GameObject enemyArrow;
+    public GameObject enemyProjectile;
     public Animator animator;
     public bool onWake = false;
     public bool onTrigger = false;
@@ -16,16 +16,15 @@ public class skeleton_Archer : enemy
     public bool onFlash = false;
     public bool IsDie = false;
     public Vector3 targetPos;
+    public bool isDash;
     public int nowHp;
     public int damaged;
     public Vector3 MoveTowardsVector;
+    public int waitCount;
 
     private enum State
     {
-        //sleep,
-        //wake,
         idle,
-        //move,
         attack,
         die
     }
@@ -38,10 +37,11 @@ public class skeleton_Archer : enemy
         players = GameObject.FindGameObjectsWithTag("Player");
         player = players[0];
         curState = State.idle;
-        fsm = new FSM(new IdleState(this, player));
+        fsm = new FSM(new sleepState(this, player));
 
         nowHp = monsterStat.maxHp;
         animator = GetComponent<Animator>();
+        waitCount = 0;
         onFlash = false;
         IsDie = false;
     }
@@ -59,8 +59,9 @@ public class skeleton_Archer : enemy
                 onFlash = true;
                 StartCoroutine(FlashWhite());
             }
-            this.damaged = 0;
+                this.damaged = 0;
         }
+
         if (nowHp <= 0)
         {
             if (IsDie == false)
@@ -75,33 +76,13 @@ public class skeleton_Archer : enemy
         switch (curState)
         {
             case State.idle:
-
-                if (CanSeePlayer())
+                if (waitCount == 3)
                 {
-
-                    if (CanAttackPlayer())
-                    {
-                        ChangeState(State.attack);
-                    }
-
+                    ChangeState(State.attack);                 
                 }
                 break;
             case State.attack:
-                if (attackMotionDone)
-                {
-                    if (CanSeePlayer())
-                    {
-                        if (!CanAttackPlayer())
-                        {
-                            ChangeState(State.idle);
-                        }
 
-                    }
-                    else
-                    {
-                        ChangeState(State.idle);
-                    }
-                }
                 break;
             case State.die:
                 if (this.gameObject.GetComponent<SpriteRenderer>().color.a <= 0)
@@ -137,80 +118,151 @@ public class skeleton_Archer : enemy
         }
     }
 
+    private void waitTimer()
+    {
+        waitCount++;
+    }
 
     private void ChangeState(State nextState)
     {
         curState = nextState;
         switch (curState)
         {
-            //case State.wake:
-            //    fsm.ChangeState(new wakeState(this, player));
-            //    animator.SetInteger("State", 1);
-            //    break;
             case State.idle:
                 fsm.ChangeState(new IdleState(this, player));
                 animator.SetInteger("State", 1);
                 break;
-            //case State.move:
-            //    fsm.ChangeState(new MoveState(this, player));
-            //    animator.SetInteger("State", 3);
-            //    break;
             case State.attack:
                 fsm.ChangeState(new AttackState(this, player));
                 animator.SetInteger("State", 2);
                 break;
             case State.die:
                 fsm.ChangeState(new DieState(this, player));
-                animator.SetInteger("State", 3);
+                animator.SetInteger("State", 3);    
                 break;
         }
     }
 
-    private bool CanSeePlayer()
-    {
-        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 10)
-        {   
-            return true;
 
-        }
-        else
-            return false;
-        //  플레이어 탐지 구현
+    public void AttackDash1()
+    {
+        targetPos = player.transform.position;
+        MoveTowardsVector = Vector3.Normalize(targetPos - this.transform.position);
+ 
     }
-
-    private bool CanAttackPlayer()
+    public void AttackDash2()
     {
-        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 10)
+        float angle = Mathf.Atan2(targetPos.y - this.transform.position.y, targetPos.x - this.transform.position.x) * Mathf.Rad2Deg;
+
+        if (angle >= -90 && angle < 90)
         {
-
-            return true;
+            this.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
         else
-            return false;
-        //  사정거리 체크 구현
+        {
+            this.transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        isDash = true;
+        StartCoroutine(dash());
     }
+    public void AttackDash3()
+    {
+        isDash = false;
+    }
+
+    public void AttackDash4()
+    {
+        int chance = Random.Range(0, 2);
+        switch (chance)
+        {
+            case 0:
+                animator.SetInteger("Pattern", 1);
+                break;
+
+            case 1:
+                animator.SetInteger("Pattern", 2);
+                break;
+        }
+
+    }
+
 
     public void AttackShoot1()
-    {     
-        attackMotionDone = false;
+    {
+
+        enemyProjectile = Instantiate(monsterStat.projectile);
+        enemyProjectile.name = "EnemyArrow";
+
+        enemyProjectile.transform.position = this.transform.position;
+        enemyProjectile.gameObject.GetComponent<enemyArrow>().target = player;
+        enemyProjectile.gameObject.GetComponent<enemyArrow>().dmg = monsterStat.damage;
+        enemyProjectile.gameObject.GetComponent<enemyArrow>().speed = monsterStat.projectileSpeed;
+
     }
+
     public void AttackShoot2()
     {
-        enemyArrow = Instantiate(monsterStat.projectile);
-        enemyArrow.name = "EnemyArrow";
+        int chance = Random.Range(0, 2);
+        switch (chance)
+        {
+            case 0:
+                animator.SetInteger("Pattern", 1);
+                break;
 
-        enemyArrow.transform.position = this.transform.position;
-        enemyArrow.gameObject.GetComponent<enemyArrow>().target = player;
-        enemyArrow.gameObject.GetComponent<enemyArrow>().dmg = monsterStat.damage;
-        enemyArrow.gameObject.GetComponent<enemyArrow>().speed = monsterStat.projectileSpeed;
-
+            case 1:
+                animator.SetInteger("Pattern", 2);
+                break;
+        }
     }
-    public void AttackShoot3()
-    {    
-        attackMotionDone = true;
-    }
 
-   
+
+    IEnumerator dash()
+    {
+        while (isDash)
+        {
+            yield return new WaitForEndOfFrame();
+            // this.transform.position = Vector3.MoveTowards(this.transform.position, targetPos, 0.05f);
+            if (this.curState != State.die)
+            {
+                transform.position += MoveTowardsVector * 10f * Time.deltaTime;
+            }
+            if (isDash == false)
+            {
+                yield break;
+            }
+        }
+        if (isDash == false)
+        {
+            yield break;
+        }
+    }
+    public class sleepState : BaseState
+    {
+        public sleepState(enemy enemy, GameObject player) : base(enemy, player) { }
+
+        public override void OnStateEnter()
+        {
+        }
+        public override void OnStateUpdate()
+        {
+        }
+        public override void OnStateExit()
+        {
+        }
+    }
+    public class wakeState : BaseState
+    {
+        public wakeState(enemy enemy, GameObject player) : base(enemy, player) { }
+        public override void OnStateEnter()
+        {
+        }
+        public override void OnStateUpdate()
+        {
+        }
+        public override void OnStateExit()
+        {
+        }
+    }
     public class IdleState : BaseState
     {
         public IdleState(enemy enemy, GameObject player) : base(enemy, player) { }
@@ -220,6 +272,27 @@ public class skeleton_Archer : enemy
 
         public override void OnStateUpdate()
         {
+        }
+
+        public override void OnStateExit()
+        {
+        }
+    }
+
+    public class MoveState : BaseState
+    {
+
+        public MoveState(enemy enemy, GameObject player) : base(enemy, player) { }
+
+
+        public override void OnStateEnter()
+        {
+
+        }
+
+        public override void OnStateUpdate()
+        {
+
             float angle = Mathf.Atan2(curPlayer.transform.position.y - curEnemy.transform.position.y, curPlayer.transform.position.x - curEnemy.transform.position.x) * Mathf.Rad2Deg;
 
             if (angle >= -90 && angle < 90)
@@ -230,14 +303,14 @@ public class skeleton_Archer : enemy
             {
                 curEnemy.transform.localEulerAngles = new Vector3(0, 180, 0);
             }
+            curEnemy.transform.position = Vector3.MoveTowards(curEnemy.transform.position, curPlayer.transform.position, curEnemy.monsterStat.moveSpeed * Time.deltaTime);
+
         }
 
         public override void OnStateExit()
         {
         }
     }
-
-    
 
     public class AttackState : BaseState
     {
@@ -250,17 +323,7 @@ public class skeleton_Archer : enemy
 
         public override void OnStateUpdate()
         {
-          
-            float angle = Mathf.Atan2(curPlayer.transform.position.y - curEnemy.transform.position.y, curPlayer.transform.position.x - curEnemy.transform.position.x) * Mathf.Rad2Deg;
 
-            if (angle >= -90 && angle < 90)
-            {
-                curEnemy.transform.localEulerAngles = new Vector3(0, 0, 0);
-            }
-            else
-            {
-                curEnemy.transform.localEulerAngles = new Vector3(0, 180, 0);
-            }
         }
 
         public override void OnStateExit()
