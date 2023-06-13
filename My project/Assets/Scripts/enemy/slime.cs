@@ -16,7 +16,7 @@ public class slime : enemy
     public bool IsDie = false;
     public Vector3 targetPos;
     public bool isDash;
-    public int nowHp;
+    public float nowHp;
     public int damaged;
     public Vector3 MoveTowardsVector;
 

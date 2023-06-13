@@ -35,6 +35,7 @@ public class playerStat : MonoBehaviour
     public weapon tmpWeapon;
     public GameObject weaponController;
     public float dashCooltime;
+    public int Tmp;
 
 
 
@@ -45,11 +46,14 @@ public class playerStat : MonoBehaviour
         maxHp = 100;
         nowHp = maxHp;
         dmg = 1;
+        Tmp = 0;
+        onFlash = false;
     }
     
     // Update is called once per frame
     void Update()
     {
+        
         if (this.damaged != 0)
         {
             if (!onFlash)

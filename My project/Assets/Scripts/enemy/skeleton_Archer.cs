@@ -16,7 +16,7 @@ public class skeleton_Archer : enemy
     public bool onFlash = false;
     public bool IsDie = false;
     public Vector3 targetPos;
-    public int nowHp;
+    public float nowHp;
     public int damaged;
     public Vector3 MoveTowardsVector;
 

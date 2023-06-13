@@ -18,7 +18,7 @@ public class mushroom : enemy
     public bool attackMotionDone = true;
     public bool onFlash = false;
     public bool IsDie = false;
-    public int nowHp;
+    public float nowHp;
     public int damaged;
 
 

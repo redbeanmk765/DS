@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a367aaa2b1cd0f744b95ff51dc153962, type: 3}
   m_Name: Stage1Rooms
   m_EditorClassIdentifier: 
-  BossRoom: {fileID: 4721740523538283257, guid: cd2b9dc47d770914d80392543487365d, type: 3}
+  BossRoom: {fileID: 5026152830168058851, guid: 34c90025b054a3043b94a04a7b914592, type: 3}
   EliteRoom: {fileID: 4721740523538283257, guid: cd2b9dc47d770914d80392543487365d, type: 3}
   ShopRoom: {fileID: 4721740523538283257, guid: cd2b9dc47d770914d80392543487365d, type: 3}
   ChestRoom: {fileID: 4721740523538283257, guid: cd2b9dc47d770914d80392543487365d, type: 3}
