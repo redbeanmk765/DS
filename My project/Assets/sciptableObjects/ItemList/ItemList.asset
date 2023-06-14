@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: ItemList
   m_EditorClassIdentifier: 
   Weapons:
-  - {fileID: 8161690647157986689, guid: 537b38613ad560944a45549fc1b76610, type: 3}
+  - {fileID: 1172393072043033540, guid: ed1cff9305500d943818e00b4bfce3f7, type: 3}
   PassiveItems: []
   ConsumableItems:
   - {fileID: 5121920241367219580, guid: f79182893f39d4c498e1f4932eb99e52, type: 3}
+  Key: {fileID: 0}
+  Coin: {fileID: 0}

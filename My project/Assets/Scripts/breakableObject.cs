@@ -93,8 +93,18 @@ public class breakableObject : MonoBehaviour
             if (nowHp <= 0)
             {
                 Destroy(gameObject);
+                if (this.gameObject.CompareTag("Drum"))
+                {
                     spawnObj = itemList.ConsumableItems[Random.Range(0, itemList.ConsumableItems.Count)];
-                    Instantiate(spawnObj, new Vector3(position.x, position.y , position.z), Quaternion.identity);
+                    Debug.Log("test");
+                }
+                else if (this.gameObject.CompareTag("Chest"))
+                {
+                    spawnObj = itemList.Weapons[Random.Range(0, itemList.Weapons.Count)];
+                    Debug.Log("test2");
+                }
+
+                Instantiate(spawnObj, new Vector3(position.x, position.y , position.z), Quaternion.identity);
                      
             }
             

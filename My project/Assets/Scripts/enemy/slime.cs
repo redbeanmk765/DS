@@ -219,7 +219,7 @@ public class slime : enemy
 
     private bool CanSeePlayer()
     {
-        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 5)
+        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 10)
         {
 
             return true;
@@ -232,7 +232,7 @@ public class slime : enemy
 
     private bool CanAttackPlayer()
     {
-        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 2)
+        if (Vector2.Distance(enemy.GetComponent<Transform>().position, player.GetComponent<Transform>().position) <= 2.3)
         {
 
             return true;

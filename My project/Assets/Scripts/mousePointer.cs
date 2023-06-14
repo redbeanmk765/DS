@@ -90,7 +90,8 @@ public class mousePointer : MonoBehaviour
         {
             weaponAnimator.SetBool("onClick", false);
         }
-        
+
+
 
     }
 

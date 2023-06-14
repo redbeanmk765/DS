@@ -9,6 +9,7 @@ TagManager:
   - attack
   - getableItems
   - Enemy
+  - Chest
   layers:
   - Default
   - TransparentFX

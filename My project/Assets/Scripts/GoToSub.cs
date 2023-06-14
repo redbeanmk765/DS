@@ -6,7 +6,19 @@ using UnityEngine.UI;
 
 public class GoToSub : MonoBehaviour
 {
-	public void OnRetry()
+
+    public void Awake()
+
+    {
+
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+        Screen.SetResolution(1600, 900, false);
+
+
+
+    }
+    public void OnRetry()
 	{
 		SceneManager.LoadScene ("SubScene");
 	}

@@ -17,7 +17,7 @@ public class weaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
+       this.GetComponent<Animator>().runtimeAnimatorController = weapon.weaponAnimator;
 
         
     }
@@ -31,14 +31,13 @@ public class weaponController : MonoBehaviour
     }
     public void AttackMotion1()
     {
- 
+        if (this.weaponChanged == true)
+        {
+            HitboxInit();
+        }
+
         if (weapon.type == weapon.Type.stick)
         {
-            if(this.weaponChanged == true)
-            {
-                HitboxInit();
-            }
- 
             this.transform.Find("HitBox").gameObject.SetActive(true);
             this.transform.parent.GetComponent<mousePointer>().isAttackMontion = true;
             this.GetComponent<Animator>().SetBool("isAttackMotion", true);
