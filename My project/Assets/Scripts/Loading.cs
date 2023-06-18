@@ -8,7 +8,8 @@ public class Loading : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        var rectTransform = GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
     }
 
     // Update is called once per frame
